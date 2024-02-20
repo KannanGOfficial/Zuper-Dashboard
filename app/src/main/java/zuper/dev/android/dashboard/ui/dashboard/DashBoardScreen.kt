@@ -39,7 +39,7 @@ import zuper.dev.android.dashboard.ui.theme.DarkMintGreen
 import zuper.dev.android.dashboard.ui.theme.LightRed
 import zuper.dev.android.dashboard.ui.theme.LightBlue
 import zuper.dev.android.dashboard.ui.theme.LightPurple
-import zuper.dev.android.dashboard.utils.extension.suffixDollar
+import zuper.dev.android.dashboard.utils.extension.prefixDollar
 import zuper.dev.android.dashboard.utils.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -258,13 +258,13 @@ fun InvoiceStatusCard(uiState: DashBoardUiState = DashBoardUiState()) {
             ) {
                 StatusText(
                     progressText = "Draft",
-                    progress = uiState.draft.toString().suffixDollar(),
+                    progress = uiState.draft.toString().prefixDollar(),
                     progressColor = Yellow
                 )
 
                 StatusText(
                     progressText = "Pending",
-                    progress = uiState.pending.toString().suffixDollar(),
+                    progress = uiState.pending.toString().prefixDollar(),
                     progressColor = LightBlue
                 )
             }
@@ -275,13 +275,13 @@ fun InvoiceStatusCard(uiState: DashBoardUiState = DashBoardUiState()) {
             ) {
                 StatusText(
                     progressText = "Paid",
-                    progress = uiState.paid.toString().suffixDollar(),
+                    progress = uiState.paid.toString().prefixDollar(),
                     progressColor = DarkMintGreen
                 )
 
                 StatusText(
                     progressText = "Bad Debit",
-                    progress = uiState.badDebit.toString().suffixDollar(),
+                    progress = uiState.badDebit.toString().prefixDollar(),
                     progressColor = LightRed
                 )
             }

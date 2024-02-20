@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.onEach
 import zuper.dev.android.dashboard.data.DataRepository
 import zuper.dev.android.dashboard.data.model.InvoiceStatus
 import zuper.dev.android.dashboard.data.model.JobStatus
+import zuper.dev.android.dashboard.utils.extension.sum
 
 class DashboardViewModel(
     dataRepository: DataRepository
@@ -43,14 +44,14 @@ class DashboardViewModel(
 
         dataRepository.observeInvoices()
             .onEach {
-                val totalValue = it.sumOf { it.total }.toLong()
-                val paid = it.filter { it.status == InvoiceStatus.Paid }.sumOf { it.total }.toLong()
+                val totalValue = it.sum { it.total }
+                val paid = it.filter { it.status == InvoiceStatus.Paid }.sum { it.total }
                 val draft =
-                    it.filter { it.status == InvoiceStatus.Draft }.sumOf { it.total }.toLong()
+                    it.filter { it.status == InvoiceStatus.Draft }.sum { it.total }
                 val pending =
-                    it.filter { it.status == InvoiceStatus.Pending }.sumOf { it.total }.toLong()
+                    it.filter { it.status == InvoiceStatus.Pending }.sum { it.total }
                 val badDebit =
-                    it.filter { it.status == InvoiceStatus.BadDebt }.sumOf { it.total }.toLong()
+                    it.filter { it.status == InvoiceStatus.BadDebt }.sum { it.total }
 
                 uiState = uiState.copy(
                     totalValue = totalValue,
@@ -63,6 +64,7 @@ class DashboardViewModel(
     }
 }
 
+
 data class DashBoardUiState(
     val totalJobs: Int = 0,
     val completedJobs: Int = 0,
@@ -70,9 +72,9 @@ data class DashBoardUiState(
     val inProgress: Int = 0,
     val cancelled: Int = 0,
     val inCompleted: Int = 0,
-    val totalValue: Long = 0,
-    val draft: Long = 0,
-    val pending: Long = 0,
-    val paid: Long = 0,
-    val badDebit: Long = 0
+    val totalValue: Long = 0L,
+    val draft: Long = 0L,
+    val pending: Long = 0L,
+    val paid: Long = 0L,
+    val badDebit: Long = 0L
 )
