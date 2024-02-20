@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.navigation.compose.rememberNavController
 import zuper.dev.android.dashboard.ui.dashboard.DashBoardScreen
 import zuper.dev.android.dashboard.ui.theme.AppTheme
+import zuper.dev.android.dashboard.utils.navigation.SetupNavGraph
 
 class MainActivity : ComponentActivity() {
 
@@ -15,7 +16,7 @@ class MainActivity : ComponentActivity() {
             AppTheme {
                 val navHostController = rememberNavController()
 
-                DashBoardScreen(navHostController = navHostController)
+                SetupNavGraph(navHostController = navHostController)
             }
         }
     }
