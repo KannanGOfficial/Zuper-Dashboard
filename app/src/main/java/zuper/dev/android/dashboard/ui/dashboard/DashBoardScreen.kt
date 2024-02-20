@@ -61,6 +61,11 @@ fun DashBoardScreen(
     val date = currentDate.dayOfMonth
     val year = currentDate.year
 
+    val cardBorderModifier = Modifier.border(
+        BorderStroke(1.dp, Color.LightGray),
+        shape = RoundedCornerShape(5.dp)
+    )
+
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -82,13 +87,21 @@ fun DashBoardScreen(
                         day = day.formatTitleCase(),
                         date = date,
                         month = month.formatTitleCase(),
-                        year = year
+                        year = year,
+                        modifier = cardBorderModifier
                     )
 
-                    JobStatusCard(uiState = viewModel.uiState) {
+                    JobStatusCard(
+                        uiState = viewModel.uiState,
+                        modifier = cardBorderModifier
+                    ) {
                         navHostController.navigate(Screens.JOBS_SCREEN.route)
                     }
-                    InvoiceStatusCard(uiState = viewModel.uiState)
+
+                    InvoiceStatusCard(
+                        uiState = viewModel.uiState,
+                        modifier = cardBorderModifier
+                    )
                 }
             }
         }
@@ -101,13 +114,14 @@ fun GreetingCard(
     date: Int,
     month: String,
     year: Int,
+    modifier: Modifier,
     greetingMessage: String = "Hello",
     name: String = "Vijay"
 ) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .border(BorderStroke(1.dp, Color.LightGray), shape = RoundedCornerShape(5.dp))
+            .then(modifier)
             .padding(15.dp)
     ) {
         Row(
@@ -134,32 +148,17 @@ fun GreetingCard(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewDashBoardScreen() {
-//    DashBoardScreen(rememberNavController())
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(20.dp), contentAlignment = Alignment.Center
-    ) {
-//        JobStatusCard()
-//        StatusText(progressText = "Yet to Start", progress = 10, progressColor = Color.Black)
-//        InvoiceStatusCard()
-//        GreetingCard()
-    }
-}
-
 @Composable
 fun JobStatusCard(
     uiState: DashBoardUiState,
-    onClick: () -> Unit
+    modifier: Modifier,
+    onClick: () -> Unit,
 ) {
     val spacing = 10.dp
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .border(BorderStroke(1.dp, Color.LightGray), shape = RoundedCornerShape(5.dp))
+            .then(modifier)
             .padding(10.dp)
             .clickable {
                 onClick()
@@ -249,12 +248,15 @@ fun StatusText(
 }
 
 @Composable
-fun InvoiceStatusCard(uiState: DashBoardUiState = DashBoardUiState()) {
+fun InvoiceStatusCard(
+    uiState: DashBoardUiState = DashBoardUiState(),
+    modifier: Modifier
+) {
     val spacing = 10.dp
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .border(BorderStroke(1.dp, Color.Gray), shape = RoundedCornerShape(5.dp))
+            .then(modifier)
             .padding(10.dp),
     ) {
 
