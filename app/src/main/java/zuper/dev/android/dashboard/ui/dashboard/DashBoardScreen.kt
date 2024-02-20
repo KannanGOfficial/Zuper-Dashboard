@@ -181,11 +181,12 @@ fun JobStatusCard(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .then(modifier)
-            .padding(10.dp)
             .clickable {
                 onClick()
             }
+            .then(modifier)
+            .padding(10.dp)
+
     ) {
 
         Column(
