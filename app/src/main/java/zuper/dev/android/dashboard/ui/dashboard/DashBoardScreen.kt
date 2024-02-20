@@ -37,6 +37,7 @@ import zuper.dev.android.dashboard.ui.theme.DarkMintGreen
 import zuper.dev.android.dashboard.ui.theme.LightRed
 import zuper.dev.android.dashboard.ui.theme.LightBlue
 import zuper.dev.android.dashboard.ui.theme.LightPurple
+import zuper.dev.android.dashboard.utils.extension.suffixDollar
 import zuper.dev.android.dashboard.utils.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -46,7 +47,7 @@ fun DashBoardScreen(
 ) {
     val apiDataSource = ApiDataSource()
     val dataRepository = DataRepository(apiDataSource)
-    val viewModel = viewModel<DashboardViewModel>() {
+    val viewModel = viewModel<DashboardViewModel> {
         DashboardViewModel(dataRepository)
     }
 
@@ -56,12 +57,12 @@ fun DashBoardScreen(
 
             TopAppBar(title = { Text(text = "DashBoard") })
 
-
             Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(20.dp)
             ) {
+
                 Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {
 
                     GreetingCard()
@@ -104,7 +105,6 @@ fun GreetingCard() {
                     .height(50.dp),
                 contentScale = ContentScale.Crop
             )
-
         }
     }
 }
@@ -130,9 +130,7 @@ fun JobStatusCard(
     uiState: DashBoardUiState,
     onClick: () -> Unit
 ) {
-
     val spacing = 10.dp
-
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -174,7 +172,6 @@ fun JobStatusCard(
                     progress = uiState.inProgress.toString(),
                     progressColor = LightBlue
                 )
-//                Text(text = "In-Progress (${uiState.inProgress})")
             }
 
             Row(
@@ -192,7 +189,6 @@ fun JobStatusCard(
                     progressColor = DarkMintGreen
                 )
             }
-
 
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                 StatusText(
@@ -285,12 +281,6 @@ fun InvoiceStatusCard(uiState: DashBoardUiState = DashBoardUiState()) {
                     progressColor = LightRed
                 )
             }
-
         }
     }
-
-
 }
-
-fun String.suffixDollar() =
-    "$" + this
