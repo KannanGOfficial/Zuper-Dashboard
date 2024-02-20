@@ -1,6 +1,7 @@
 package zuper.dev.android.dashboard.ui.dashboard
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -22,10 +23,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import zuper.dev.android.dashboard.R
 import zuper.dev.android.dashboard.data.DataRepository
 import zuper.dev.android.dashboard.data.remote.ApiDataSource
 import zuper.dev.android.dashboard.ui.theme.Yellow
@@ -46,19 +50,21 @@ fun DashBoardScreen(
         DashboardViewModel(dataRepository)
     }
 
-    Box(modifier = Modifier.fillMaxSize()){
+    Box(modifier = Modifier.fillMaxSize()) {
 
         Column {
 
-            TopAppBar(title = { Text(text = "DashBoard")})
+            TopAppBar(title = { Text(text = "DashBoard") })
 
 
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(10.dp)
+                    .padding(20.dp)
             ) {
                 Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {
+
+                    GreetingCard()
 
                     JobStatusCard(uiState = viewModel.uiState) {
                         navHostController.navigate(Screens.JOBS_SCREEN.route)
@@ -70,6 +76,39 @@ fun DashBoardScreen(
     }
 }
 
+@Composable
+fun GreetingCard() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .border(BorderStroke(1.dp, Color.LightGray), shape = RoundedCornerShape(5.dp))
+            .padding(15.dp)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(5.dp)
+            ) {
+                Text(text = "Hello, Henry Jones !\uD83D\uDC4B")
+                Text(text = "Friday, January 6th 2024")
+            }
+
+            Image(
+                painter = painterResource(id = R.drawable.hri),
+                contentDescription = "profile_picture",
+                modifier = Modifier
+                    .width(50.dp)
+                    .height(50.dp),
+                contentScale = ContentScale.Crop
+            )
+
+        }
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewDashBoardScreen() {
@@ -77,11 +116,12 @@ fun PreviewDashBoardScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(10.dp), contentAlignment = Alignment.Center
+            .padding(20.dp), contentAlignment = Alignment.Center
     ) {
 //        JobStatusCard()
 //        StatusText(progressText = "Yet to Start", progress = 10, progressColor = Color.Black)
-        InvoiceStatusCard()
+//        InvoiceStatusCard()
+        GreetingCard()
     }
 }
 
