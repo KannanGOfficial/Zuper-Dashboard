@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -29,8 +28,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -82,7 +81,7 @@ fun DashBoardScreen(
 
             TopAppBar(title = {
                 Text(
-                    text = "Dashboard",
+                    text = stringResource(R.string.dashboard),
                     style = MaterialTheme.typography.titleLarge
                 )
             }, modifier = appBarBorderModifier)
@@ -131,8 +130,8 @@ fun GreetingCard(
     month: String,
     year: Int,
     modifier: Modifier,
-    greetingMessage: String = "Hello",
-    name: String = "Vijay"
+    greetingMessage: String = stringResource(R.string.hello),
+    name: String = stringResource(R.string.vijay)
 ) {
     Box(
         modifier = Modifier
@@ -149,18 +148,18 @@ fun GreetingCard(
                 verticalArrangement = Arrangement.spacedBy(5.dp)
             ) {
                 Text(
-                    text = "$greetingMessage, $name !\uD83D\uDC4B",
+                    text = stringResource(R.string.greeting_message_format, greetingMessage, name),
                     style = MaterialTheme.typography.titleLarge
                 )
                 Text(
-                    text = "$day, $month ${date}th $year",
+                    text = stringResource(R.string.date_format, day, month, date, year),
                     style = MaterialTheme.typography.titleSmall
                 )
             }
 
             Image(
                 painter = painterResource(id = R.drawable.hri),
-                contentDescription = "profile_picture",
+                contentDescription = stringResource(R.string.profile_picture),
                 modifier = Modifier
                     .width(50.dp)
                     .height(50.dp),
@@ -194,7 +193,7 @@ fun JobStatusCard(
             modifier = Modifier.fillMaxWidth()
         ) {
 
-            Text(text = "Job Stats", style = titleTextStyle)
+            Text(text = stringResource(R.string.job_stats), style = titleTextStyle)
 
             Divider()
 
@@ -202,9 +201,13 @@ fun JobStatusCard(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = "${uiState.totalJobs} Jobs", style = contentTextStyle)
+                Text(text = stringResource(R.string.jobs, uiState.totalJobs), style = contentTextStyle)
                 Text(
-                    text = "${uiState.completedJobs} of ${uiState.totalJobs} Jobs completed",
+                    text = stringResource(
+                        R.string.of_jobs_completed,
+                        uiState.completedJobs,
+                        uiState.totalJobs
+                    ),
                     style = contentTextStyle
                 )
             }
@@ -214,13 +217,13 @@ fun JobStatusCard(
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 StatusText(
-                    progressText = "Yet to Start",
+                    progressText = stringResource(R.string.yet_to_start),
                     progress = uiState.yetToStart.toString(),
                     progressColor = LightPurple,
                     textStyle = contentTextStyle
                 )
                 StatusText(
-                    progressText = "In-Progress",
+                    progressText = stringResource(R.string.in_progress),
                     progress = uiState.inProgress.toString(),
                     progressColor = LightBlue,
                     textStyle = contentTextStyle
@@ -232,13 +235,13 @@ fun JobStatusCard(
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 StatusText(
-                    progressText = "cancelled",
+                    progressText = stringResource(R.string.cancelled),
                     progress = uiState.cancelled.toString(),
                     progressColor = Yellow,
                     textStyle = contentTextStyle
                 )
                 StatusText(
-                    progressText = "Completed",
+                    progressText = stringResource(R.string.completed),
                     progress = uiState.completedJobs.toString(),
                     progressColor = DarkMintGreen,
                     textStyle = contentTextStyle
@@ -247,7 +250,7 @@ fun JobStatusCard(
 
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                 StatusText(
-                    progressText = "In-Completed",
+                    progressText = stringResource(R.string.in_completed),
                     progress = uiState.inCompleted.toString(),
                     progressColor = LightRed,
                     textStyle = contentTextStyle
@@ -275,7 +278,7 @@ fun StatusText(
                 .height(8.dp)
                 .background(color = progressColor)
         )
-        Text(text = "$progressText ($progress)", style = textStyle)
+        Text(text = stringResource(R.string.progress_format, progressText, progress), style = textStyle)
     }
 
 }
@@ -297,7 +300,7 @@ fun InvoiceStatusCard(
 
         Column(verticalArrangement = Arrangement.spacedBy(spacing)) {
 
-            Text(text = "Invoice Stats", modifier = Modifier.fillMaxWidth(), style = titleTextStyle)
+            Text(text = stringResource(R.string.invoice_stats), modifier = Modifier.fillMaxWidth(), style = titleTextStyle)
 
             Divider()
 
@@ -305,9 +308,9 @@ fun InvoiceStatusCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(text = "Total Value ($${uiState.totalValue})", style = contentTextStyle)
+                Text(text = stringResource(R.string.total_value_format, uiState.totalValue), style = contentTextStyle)
 
-                Text(text = "Collected ($${uiState.paid})", style = contentTextStyle)
+                Text(text = stringResource(R.string.collected_format, uiState.paid), style = contentTextStyle)
             }
 
             Row(
@@ -315,14 +318,14 @@ fun InvoiceStatusCard(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 StatusText(
-                    progressText = "Draft",
+                    progressText = stringResource(R.string.draft),
                     progress = uiState.draft.toString().prefixDollar(),
                     progressColor = Yellow,
                     textStyle = contentTextStyle
                 )
 
                 StatusText(
-                    progressText = "Pending",
+                    progressText = stringResource(R.string.pending),
                     progress = uiState.pending.toString().prefixDollar(),
                     progressColor = LightBlue,
                     textStyle = contentTextStyle
@@ -334,14 +337,14 @@ fun InvoiceStatusCard(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 StatusText(
-                    progressText = "Paid",
+                    progressText = stringResource(R.string.paid),
                     progress = uiState.paid.toString().prefixDollar(),
                     progressColor = DarkMintGreen,
                     textStyle = contentTextStyle
                 )
 
                 StatusText(
-                    progressText = "Bad Debit",
+                    progressText = stringResource(R.string.bad_debit),
                     progress = uiState.badDebit.toString().prefixDollar(),
                     progressColor = LightRed,
                     textStyle = contentTextStyle

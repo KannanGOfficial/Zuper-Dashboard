@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">android-dashboard-problem</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="in_progress">In-Progress</string>
+    <string name="yet_to_start">Yet to Start</string>
+    <string name="jobs">%1$s Jobs</string>
+    <string name="of_jobs_completed">%1$s of %2$s Jobs completed</string>
+    <string name="job_stats">Job Stats</string>
+    <string name="profile_picture">profile_picture</string>
+    <string name="hello">Hello</string>
+    <string name="vijay">Vijay</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="greeting_message_format">%1$s, %2$s !👋</string>
+    <string name="date_format">%1$s, %2$s %3$sth %4$s</string>
+    <string name="completed">Completed</string>
+    <string name="in_completed">In-Completed</string>
+    <string name="progress_format">%1$s (%2$s)</string>
+    <string name="invoice_stats">Invoice Stats</string>
+    <string name="total_value_format">Total Value ($%1$s)</string>
+    <string name="collected_format">Collected ($%1$s)</string>
+    <string name="draft">Draft</string>
+    <string name="pending">Pending</string>
+    <string name="paid">Paid</string>
+    <string name="bad_debit">Bad Debit</string>
 </resources>
