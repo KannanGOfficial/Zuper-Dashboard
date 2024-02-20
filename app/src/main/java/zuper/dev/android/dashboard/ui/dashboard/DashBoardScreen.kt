@@ -196,7 +196,7 @@ fun JobStatusCard(
 
             Text(text = stringResource(R.string.job_stats), style = titleTextStyle)
 
-            Divider()
+            Divider(color = Color.LightGray)
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -224,7 +224,7 @@ fun JobStatusCard(
                     textStyle = contentTextStyle
                 )
                 StatusText(
-                    progressText = stringResource(R.string.in_progress),
+                    progressText = stringResource(R.string.progress_in),
                     progress = uiState.inProgress.toString(),
                     progressColor = LightBlue,
                     textStyle = contentTextStyle
@@ -303,7 +303,7 @@ fun InvoiceStatusCard(
 
             Text(text = stringResource(R.string.invoice_stats), modifier = Modifier.fillMaxWidth(), style = titleTextStyle)
 
-            Divider()
+            Divider(color = Color.LightGray)
 
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
