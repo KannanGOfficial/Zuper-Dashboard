@@ -13,12 +13,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -27,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -66,6 +69,10 @@ fun DashBoardScreen(
         shape = RoundedCornerShape(5.dp)
     )
 
+    val appBarBorderModifier = Modifier.border(
+        BorderStroke(1.dp, Color.LightGray)
+    )
+
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -73,7 +80,12 @@ fun DashBoardScreen(
             modifier = Modifier.verticalScroll(rememberScrollState())
         ) {
 
-            TopAppBar(title = { Text(text = "DashBoard") })
+            TopAppBar(title = {
+                Text(
+                    text = "Dashboard",
+                    style = MaterialTheme.typography.titleLarge
+                )
+            }, modifier = appBarBorderModifier)
 
             Box(
                 modifier = Modifier
@@ -93,14 +105,18 @@ fun DashBoardScreen(
 
                     JobStatusCard(
                         uiState = viewModel.uiState,
-                        modifier = cardBorderModifier
+                        modifier = cardBorderModifier,
+                        titleTextStyle = MaterialTheme.typography.titleMedium,
+                        contentTextStyle = MaterialTheme.typography.bodySmall
                     ) {
                         navHostController.navigate(Screens.JOBS_SCREEN.route)
                     }
 
                     InvoiceStatusCard(
                         uiState = viewModel.uiState,
-                        modifier = cardBorderModifier
+                        modifier = cardBorderModifier,
+                        titleTextStyle = MaterialTheme.typography.titleMedium,
+                        contentTextStyle = MaterialTheme.typography.bodySmall
                     )
                 }
             }
@@ -132,8 +148,14 @@ fun GreetingCard(
             Column(
                 verticalArrangement = Arrangement.spacedBy(5.dp)
             ) {
-                Text(text = "$greetingMessage, $name !\uD83D\uDC4B")
-                Text(text = "$day, $month ${date}th $year")
+                Text(
+                    text = "$greetingMessage, $name !\uD83D\uDC4B",
+                    style = MaterialTheme.typography.titleLarge
+                )
+                Text(
+                    text = "$day, $month ${date}th $year",
+                    style = MaterialTheme.typography.titleSmall
+                )
             }
 
             Image(
@@ -152,7 +174,9 @@ fun GreetingCard(
 fun JobStatusCard(
     uiState: DashBoardUiState,
     modifier: Modifier,
-    onClick: () -> Unit,
+    titleTextStyle: TextStyle,
+    contentTextStyle: TextStyle,
+    onClick: () -> Unit
 ) {
     val spacing = 10.dp
     Box(
@@ -170,7 +194,7 @@ fun JobStatusCard(
             modifier = Modifier.fillMaxWidth()
         ) {
 
-            Text(text = "Job Stats")
+            Text(text = "Job Stats", style = titleTextStyle)
 
             Divider()
 
@@ -178,8 +202,11 @@ fun JobStatusCard(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = "${uiState.totalJobs} Jobs")
-                Text(text = "${uiState.completedJobs} of ${uiState.totalJobs} Jobs completed")
+                Text(text = "${uiState.totalJobs} Jobs", style = contentTextStyle)
+                Text(
+                    text = "${uiState.completedJobs} of ${uiState.totalJobs} Jobs completed",
+                    style = contentTextStyle
+                )
             }
 
             Row(
@@ -189,12 +216,14 @@ fun JobStatusCard(
                 StatusText(
                     progressText = "Yet to Start",
                     progress = uiState.yetToStart.toString(),
-                    progressColor = LightPurple
+                    progressColor = LightPurple,
+                    textStyle = contentTextStyle
                 )
                 StatusText(
                     progressText = "In-Progress",
                     progress = uiState.inProgress.toString(),
-                    progressColor = LightBlue
+                    progressColor = LightBlue,
+                    textStyle = contentTextStyle
                 )
             }
 
@@ -205,12 +234,14 @@ fun JobStatusCard(
                 StatusText(
                     progressText = "cancelled",
                     progress = uiState.cancelled.toString(),
-                    progressColor = Yellow
+                    progressColor = Yellow,
+                    textStyle = contentTextStyle
                 )
                 StatusText(
                     progressText = "Completed",
                     progress = uiState.completedJobs.toString(),
-                    progressColor = DarkMintGreen
+                    progressColor = DarkMintGreen,
+                    textStyle = contentTextStyle
                 )
             }
 
@@ -218,7 +249,8 @@ fun JobStatusCard(
                 StatusText(
                     progressText = "In-Completed",
                     progress = uiState.inCompleted.toString(),
-                    progressColor = LightRed
+                    progressColor = LightRed,
+                    textStyle = contentTextStyle
                 )
             }
         }
@@ -230,19 +262,20 @@ fun JobStatusCard(
 fun StatusText(
     progressText: String,
     progress: String,
-    progressColor: Color
+    progressColor: Color,
+    textStyle: TextStyle
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
+        horizontalArrangement = Arrangement.spacedBy(5.dp)
     ) {
         Box(
             modifier = Modifier
-                .width(15.dp)
-                .height(15.dp)
+                .width(8.dp)
+                .height(8.dp)
                 .background(color = progressColor)
         )
-        Text(text = "$progressText ($progress)")
+        Text(text = "$progressText ($progress)", style = textStyle)
     }
 
 }
@@ -250,7 +283,9 @@ fun StatusText(
 @Composable
 fun InvoiceStatusCard(
     uiState: DashBoardUiState = DashBoardUiState(),
-    modifier: Modifier
+    modifier: Modifier,
+    titleTextStyle: TextStyle,
+    contentTextStyle: TextStyle
 ) {
     val spacing = 10.dp
     Box(
@@ -262,7 +297,7 @@ fun InvoiceStatusCard(
 
         Column(verticalArrangement = Arrangement.spacedBy(spacing)) {
 
-            Text(text = "Invoice Stats", modifier = Modifier.fillMaxWidth())
+            Text(text = "Invoice Stats", modifier = Modifier.fillMaxWidth(), style = titleTextStyle)
 
             Divider()
 
@@ -270,9 +305,9 @@ fun InvoiceStatusCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(text = "Total Value ($${uiState.totalValue})")
+                Text(text = "Total Value ($${uiState.totalValue})", style = contentTextStyle)
 
-                Text(text = "Collected ($${uiState.paid})")
+                Text(text = "Collected ($${uiState.paid})", style = contentTextStyle)
             }
 
             Row(
@@ -282,13 +317,15 @@ fun InvoiceStatusCard(
                 StatusText(
                     progressText = "Draft",
                     progress = uiState.draft.toString().prefixDollar(),
-                    progressColor = Yellow
+                    progressColor = Yellow,
+                    textStyle = contentTextStyle
                 )
 
                 StatusText(
                     progressText = "Pending",
                     progress = uiState.pending.toString().prefixDollar(),
-                    progressColor = LightBlue
+                    progressColor = LightBlue,
+                    textStyle = contentTextStyle
                 )
             }
 
@@ -299,13 +336,15 @@ fun InvoiceStatusCard(
                 StatusText(
                     progressText = "Paid",
                     progress = uiState.paid.toString().prefixDollar(),
-                    progressColor = DarkMintGreen
+                    progressColor = DarkMintGreen,
+                    textStyle = contentTextStyle
                 )
 
                 StatusText(
                     progressText = "Bad Debit",
                     progress = uiState.badDebit.toString().prefixDollar(),
-                    progressColor = LightRed
+                    progressColor = LightRed,
+                    textStyle = contentTextStyle
                 )
             }
         }
