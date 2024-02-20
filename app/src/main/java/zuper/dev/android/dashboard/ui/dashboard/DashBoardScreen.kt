@@ -39,8 +39,10 @@ import zuper.dev.android.dashboard.ui.theme.DarkMintGreen
 import zuper.dev.android.dashboard.ui.theme.LightRed
 import zuper.dev.android.dashboard.ui.theme.LightBlue
 import zuper.dev.android.dashboard.ui.theme.LightPurple
+import zuper.dev.android.dashboard.utils.extension.formatTitleCase
 import zuper.dev.android.dashboard.utils.extension.prefixDollar
 import zuper.dev.android.dashboard.utils.navigation.Screens
+import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,6 +54,13 @@ fun DashBoardScreen(
     val viewModel = viewModel<DashboardViewModel> {
         DashboardViewModel(dataRepository)
     }
+
+    val currentDate = LocalDate.now()
+    val day = currentDate.dayOfWeek.name
+    val month = currentDate.month.name
+    val date = currentDate.dayOfMonth
+    val year = currentDate.year
+
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -69,7 +78,12 @@ fun DashBoardScreen(
 
                 Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {
 
-                    GreetingCard()
+                    GreetingCard(
+                        day = day.formatTitleCase(),
+                        date = date,
+                        month = month.formatTitleCase(),
+                        year = year
+                    )
 
                     JobStatusCard(uiState = viewModel.uiState) {
                         navHostController.navigate(Screens.JOBS_SCREEN.route)
@@ -82,7 +96,14 @@ fun DashBoardScreen(
 }
 
 @Composable
-fun GreetingCard() {
+fun GreetingCard(
+    day: String,
+    date: Int,
+    month: String,
+    year: Int,
+    greetingMessage: String = "Hello",
+    name: String = "Vijay"
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -97,8 +118,8 @@ fun GreetingCard() {
             Column(
                 verticalArrangement = Arrangement.spacedBy(5.dp)
             ) {
-                Text(text = "Hello, Henry Jones !\uD83D\uDC4B")
-                Text(text = "Friday, January 6th 2024")
+                Text(text = "$greetingMessage, $name !\uD83D\uDC4B")
+                Text(text = "$day, $month ${date}th $year")
             }
 
             Image(
@@ -125,7 +146,7 @@ fun PreviewDashBoardScreen() {
 //        JobStatusCard()
 //        StatusText(progressText = "Yet to Start", progress = 10, progressColor = Color.Black)
 //        InvoiceStatusCard()
-        GreetingCard()
+//        GreetingCard()
     }
 }
 
