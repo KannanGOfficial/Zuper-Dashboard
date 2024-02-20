@@ -3,6 +3,7 @@ package zuper.dev.android.dashboard.ui.dashboard
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,7 +15,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,6 +35,7 @@ import zuper.dev.android.dashboard.ui.theme.LightBlue
 import zuper.dev.android.dashboard.ui.theme.LightPurple
 import zuper.dev.android.dashboard.utils.navigation.Screens
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DashBoardScreen(
     navHostController: NavHostController
@@ -42,17 +46,26 @@ fun DashBoardScreen(
         DashboardViewModel(dataRepository)
     }
 
+    Box(modifier = Modifier.fillMaxSize()){
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(10.dp), contentAlignment = Alignment.Center
-    ) {
-        Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {
-            JobStatusCard(uiState = viewModel.uiState) {
-                navHostController.navigate(Screens.JOBS_SCREEN.route)
+        Column {
+
+            TopAppBar(title = { Text(text = "DashBoard")})
+
+
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(10.dp)
+            ) {
+                Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {
+
+                    JobStatusCard(uiState = viewModel.uiState) {
+                        navHostController.navigate(Screens.JOBS_SCREEN.route)
+                    }
+                    InvoiceStatusCard(uiState = viewModel.uiState)
+                }
             }
-            InvoiceStatusCard(uiState = viewModel.uiState)
         }
     }
 }
@@ -85,6 +98,9 @@ fun JobStatusCard(
             .fillMaxWidth()
             .border(BorderStroke(1.dp, Color.LightGray), shape = RoundedCornerShape(5.dp))
             .padding(10.dp)
+            .clickable {
+                onClick()
+            }
     ) {
 
         Column(

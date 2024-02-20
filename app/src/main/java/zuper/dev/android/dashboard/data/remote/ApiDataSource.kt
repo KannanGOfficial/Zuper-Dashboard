@@ -14,7 +14,7 @@ class ApiDataSource {
         return flow {
             while (true) {
                 emit(SampleData.generateRandomJobList(20))
-                delay(30.seconds.inWholeMilliseconds)
+                delay(3.seconds.inWholeMilliseconds)
             }
         }
     }
@@ -23,7 +23,7 @@ class ApiDataSource {
         return flow {
             while (true) {
                 emit(SampleData.generateRandomInvoiceList(20))
-                delay(30.seconds.inWholeMilliseconds)
+                delay(3.seconds.inWholeMilliseconds)
             }
         }
     }
