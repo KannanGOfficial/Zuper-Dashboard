@@ -16,7 +16,11 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
@@ -104,12 +108,17 @@ fun JobsScreen(
     Box(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
 
-            TopAppBar(title = {
+            TopAppBar(navigationIcon = {
+                IconButton(onClick = { navHostController.popBackStack() }) {
+                    Icon(Icons.Default.ArrowBack, contentDescription = "back_icon")
+                }
+            },title = {
                 Text(
                     text = "Jobs (${viewModel.uiState.totalJob})",
                     style = MaterialTheme.typography.titleLarge
                 )
-            }, modifier = appBarBorderModifier)
+            }, modifier = appBarBorderModifier,
+                )
 
             ScrollableTabRow(
                 selectedTabIndex = selectedTabIndex,
@@ -132,7 +141,9 @@ fun JobsScreen(
                     .weight(1f)
             ) { selectedIndex ->
 
-                LazyColumn(modifier = Modifier.fillMaxSize().padding(20.dp), verticalArrangement = Arrangement.spacedBy(20.dp)){
+                LazyColumn(modifier = Modifier
+                    .fillMaxSize()
+                    .padding(20.dp), verticalArrangement = Arrangement.spacedBy(20.dp)){
                     items(viewModel.getJobList(selectedIndex)) {
                         JobItem(modifier = cardBorderModifier,
                             jobNumber = it.jobNumber.toString().prefixHashtag(),
