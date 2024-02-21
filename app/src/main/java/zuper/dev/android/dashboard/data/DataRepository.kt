@@ -25,7 +25,6 @@ class DataRepository(private val apiDataSource: ApiDataSource) {
      * This API returns random jobs every time invoked
      */
     fun getJobs(): List<JobApiModel> {
-        // TODO - Update as per listing page expectations
-        return listOf()
+        return apiDataSource.getJobs()
     }
 }
