@@ -33,7 +33,18 @@ class JobsViewModel(
             )
         }
     }
+
+    fun getJobList(index: Int): List<JobApiModel> =
+        when (index) {
+            JobStatus.YetToStart.ordinal -> uiState.yetToStartJobList
+            JobStatus.InProgress.ordinal -> uiState.inProgressJobList
+            JobStatus.Canceled.ordinal -> uiState.cancelledJobList
+            JobStatus.Completed.ordinal -> uiState.completedJobList
+            JobStatus.Incomplete.ordinal -> uiState.inCompleteJobList
+            else -> emptyList()
+        }
 }
+
 
 data class JobsUiState(
     val totalJob: Int = 0,

@@ -6,6 +6,9 @@ import java.util.Locale
 fun String.prefixDollar() =
     "$$this"
 
+fun String.prefixHashtag() =
+    "#$this"
+
 fun String.formatTitleCase(): String {
     return if (isNotBlank() && isNotEmpty()) {
         var firstLetter = get(0).uppercaseChar()
