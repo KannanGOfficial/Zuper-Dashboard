@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -36,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -115,23 +117,26 @@ fun JobsScreen(
     Box(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
 
-            TopAppBar(navigationIcon = {
-                IconButton(onClick = { navHostController.popBackStack() }) {
-                    Icon(Icons.Default.ArrowBack, contentDescription = "back_icon")
-                }
-            },title = {
-                Text(
-                    text = "Jobs (${viewModel.uiState.totalJob})",
-                    style = MaterialTheme.typography.titleLarge
-                )
-            }, modifier = appBarBorderModifier,
-                )
+            TopAppBar(
+                navigationIcon = {
+                    IconButton(onClick = { navHostController.popBackStack() }) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "back_icon")
+                    }
+                },
+                title = {
+                    Text(
+                        text = "Jobs (${viewModel.uiState.totalJob})",
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                },
+                modifier = appBarBorderModifier,
+            )
 
             JobHeader(
                 totalJobs = viewModel.uiState.totalJob,
                 completedJobs = viewModel.uiState.completedJobList.size,
                 contentTextStyle = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.padding(20.dp)
+                modifier = Modifier.padding(top = 20.dp, start = 20.dp, end = 20.dp, bottom = 10.dp)
             )
 
             JobStatusBar(
@@ -149,6 +154,8 @@ fun JobsScreen(
                 modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 20.dp)
             )
 
+            Divider()
+
             ScrollableTabRow(
                 selectedTabIndex = selectedTabIndex,
                 modifier = Modifier
@@ -159,7 +166,18 @@ fun JobsScreen(
                     Tab(selected = index == selectedTabIndex, onClick = {
                         selectedTabIndex = index
                     }, text = {
-                        Text(text = name)
+                        if (selectedTabIndex == index)
+                            Text(
+                                text = name,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.Black
+                            )
+                        else
+                            Text(
+                                text = name,
+                                fontWeight = FontWeight.Medium,
+                                color = Color.Black
+                            )
                     })
                 }
             }
@@ -170,11 +188,14 @@ fun JobsScreen(
                     .weight(1f)
             ) { selectedIndex ->
 
-                LazyColumn(modifier = Modifier
-                    .fillMaxSize()
-                    .padding(20.dp), verticalArrangement = Arrangement.spacedBy(20.dp)){
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(20.dp), verticalArrangement = Arrangement.spacedBy(20.dp)
+                ) {
                     items(viewModel.getJobList(selectedIndex)) {
-                        JobItem(modifier = cardBorderModifier,
+                        JobItem(
+                            modifier = cardBorderModifier,
                             jobNumber = it.jobNumber.toString().prefixHashtag(),
                             jobTitle = it.title,
                             jobDescription = Timezone.getFormattedTime(
@@ -198,7 +219,7 @@ fun JobItem(
     modifier: Modifier,
     jobNumber: String = "#121",
     jobTitle: String = "Interior design",
-    jobDescription : String
+    jobDescription: String
 ) {
     Box(
         modifier = Modifier
@@ -209,9 +230,21 @@ fun JobItem(
         Column(
             verticalArrangement = Arrangement.spacedBy(7.dp)
         ) {
-            Text(text = jobNumber, modifier = Modifier.fillMaxWidth(), style = MaterialTheme.typography.bodyMedium)
-            Text(text = jobTitle, modifier = Modifier.fillMaxWidth(), style = MaterialTheme.typography.titleSmall)
-            Text(text = /*"Today, 10.30 - 11.00 AM"*/jobDescription, modifier = Modifier.fillMaxWidth(), style = MaterialTheme.typography.bodyMedium)
+            Text(
+                text = jobNumber,
+                modifier = Modifier.fillMaxWidth(),
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Text(
+                text = jobTitle,
+                modifier = Modifier.fillMaxWidth(),
+                style = MaterialTheme.typography.titleSmall
+            )
+            Text(
+                text = /*"Today, 10.30 - 11.00 AM"*/jobDescription,
+                modifier = Modifier.fillMaxWidth(),
+                style = MaterialTheme.typography.bodyMedium
+            )
         }
     }
 }
