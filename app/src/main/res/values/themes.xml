@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="Theme.ZuperSplash" parent="Theme.SplashScreen">
+
+        <item name="windowSplashScreenAnimatedIcon">@drawable/zuper_logo</item>
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="postSplashScreenTheme">@style/Theme.Androiddashboardproblem</item>
+    </style>
     <style name="Theme.Androiddashboardproblem" parent="android:Theme.Material.Light.NoActionBar" />
 </resources>
