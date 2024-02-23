@@ -81,7 +81,7 @@ fun InvoiceStatusBar(
     Canvas(
         modifier = Modifier
             .fillMaxWidth()
-            .height(30.dp)
+            .height(15.dp)
     ) {
 
         val canvasWidth = size.width

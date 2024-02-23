@@ -94,7 +94,7 @@ fun JobStatusBar(
         modifier = Modifier
             .then(modifier)
             .fillMaxWidth()
-            .height(30.dp)
+            .height(15.dp)
 
     ) {
 
