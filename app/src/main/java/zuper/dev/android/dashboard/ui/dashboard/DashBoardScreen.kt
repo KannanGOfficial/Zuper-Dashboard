@@ -31,6 +31,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import zuper.dev.android.dashboard.R
@@ -47,16 +48,15 @@ import zuper.dev.android.dashboard.utils.extension.prefixDollar
 import zuper.dev.android.dashboard.utils.navigation.Screens
 import java.time.LocalDate
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DashBoardScreen(
     navHostController: NavHostController
 ) {
-    val apiDataSource = ApiDataSource()
-    val dataRepository = DataRepository(apiDataSource)
-    val viewModel = viewModel<DashboardViewModel> {
-        DashboardViewModel(dataRepository)
-    }
+//    val apiDataSource = ApiDataSource()
+//    val dataRepository = DataRepository(apiDataSource)
+    val viewModel = hiltViewModel<DashboardViewModel>()
 
     val currentDate = LocalDate.now()
     val greetingMessage = LocalDate.now().format(Timezone.greetingFormatter)

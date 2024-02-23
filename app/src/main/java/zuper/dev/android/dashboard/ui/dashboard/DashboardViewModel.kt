@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -12,8 +13,10 @@ import zuper.dev.android.dashboard.data.DataRepository
 import zuper.dev.android.dashboard.data.model.InvoiceStatus
 import zuper.dev.android.dashboard.data.model.JobStatus
 import zuper.dev.android.dashboard.utils.extension.sum
+import javax.inject.Inject
 
-class DashboardViewModel(
+@HiltViewModel
+class DashboardViewModel @Inject constructor(
     dataRepository: DataRepository
 ) : ViewModel() {
 

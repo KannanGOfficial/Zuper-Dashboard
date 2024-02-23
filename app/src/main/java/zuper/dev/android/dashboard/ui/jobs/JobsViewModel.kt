@@ -4,6 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import zuper.dev.android.dashboard.data.DataRepository
 import zuper.dev.android.dashboard.data.model.JobApiModel
 import zuper.dev.android.dashboard.data.model.JobStatus
@@ -13,9 +14,11 @@ import zuper.dev.android.dashboard.utils.extension.suffixComma
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+import javax.inject.Inject
 
-class JobsViewModel(
-    private val dataRepository: DataRepository
+@HiltViewModel
+class JobsViewModel @Inject constructor(
+    dataRepository: DataRepository
 ) : ViewModel() {
 
     var uiState by mutableStateOf(JobsUiState())

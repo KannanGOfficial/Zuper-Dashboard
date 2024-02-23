@@ -41,6 +41,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import zuper.dev.android.dashboard.R
@@ -60,11 +61,9 @@ import zuper.dev.android.dashboard.utils.extension.prefixHashtag
 fun JobsScreen(
     navHostController: NavHostController
 ) {
-    val apiDataSource = ApiDataSource()
-    val dataRepository = DataRepository(apiDataSource)
-    val viewModel = viewModel<JobsViewModel> {
-        JobsViewModel(dataRepository)
-    }
+//    val apiDataSource = ApiDataSource()
+//    val dataRepository = DataRepository(apiDataSource)
+    val viewModel = hiltViewModel<JobsViewModel>()
 
     val appBarBorderModifier = Modifier.border(
         BorderStroke(1.dp, Color.LightGray)
