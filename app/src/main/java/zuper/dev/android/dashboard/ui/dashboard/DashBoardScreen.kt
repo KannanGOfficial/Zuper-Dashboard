@@ -198,20 +198,11 @@ fun JobStatusCard(
 
             Divider(color = Color.LightGray)
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(text = stringResource(R.string.jobs, uiState.totalJobs), style = contentTextStyle)
-                Text(
-                    text = stringResource(
-                        R.string.of_jobs_completed,
-                        uiState.completedJobs,
-                        uiState.totalJobs
-                    ),
-                    style = contentTextStyle
-                )
-            }
+            JobHeader(
+                totalJobs = uiState.totalJobs,
+                completedJobs = uiState.completedJobs,
+                contentTextStyle = contentTextStyle
+            )
 
             JobStatusBar(
                 totalJobs = uiState.totalJobs,
@@ -293,7 +284,10 @@ fun StatusText(
                 .height(8.dp)
                 .background(color = progressColor)
         )
-        Text(text = stringResource(R.string.progress_format, progressText, progress), style = textStyle)
+        Text(
+            text = stringResource(R.string.progress_format, progressText, progress),
+            style = textStyle
+        )
     }
 
 }
@@ -315,7 +309,11 @@ fun InvoiceStatusCard(
 
         Column(verticalArrangement = Arrangement.spacedBy(spacing)) {
 
-            Text(text = stringResource(R.string.invoice_stats), modifier = Modifier.fillMaxWidth(), style = titleTextStyle)
+            Text(
+                text = stringResource(R.string.invoice_stats),
+                modifier = Modifier.fillMaxWidth(),
+                style = titleTextStyle
+            )
 
             Divider(color = Color.LightGray)
 
@@ -323,9 +321,15 @@ fun InvoiceStatusCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(text = stringResource(R.string.total_value_format, uiState.totalValue), style = contentTextStyle)
+                Text(
+                    text = stringResource(R.string.total_value_format, uiState.totalValue),
+                    style = contentTextStyle
+                )
 
-                Text(text = stringResource(R.string.collected_format, uiState.paid), style = contentTextStyle)
+                Text(
+                    text = stringResource(R.string.collected_format, uiState.paid),
+                    style = contentTextStyle
+                )
             }
 
             InvoiceStatusBar(

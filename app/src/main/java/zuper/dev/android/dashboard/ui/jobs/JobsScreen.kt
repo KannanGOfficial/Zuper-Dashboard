@@ -43,6 +43,13 @@ import androidx.navigation.NavHostController
 import zuper.dev.android.dashboard.R
 import zuper.dev.android.dashboard.data.DataRepository
 import zuper.dev.android.dashboard.data.remote.ApiDataSource
+import zuper.dev.android.dashboard.ui.dashboard.JobHeader
+import zuper.dev.android.dashboard.ui.dashboard.JobStatusBar
+import zuper.dev.android.dashboard.ui.theme.DarkMintGreen
+import zuper.dev.android.dashboard.ui.theme.LightBlue
+import zuper.dev.android.dashboard.ui.theme.LightPurple
+import zuper.dev.android.dashboard.ui.theme.LightRed
+import zuper.dev.android.dashboard.ui.theme.Yellow
 import zuper.dev.android.dashboard.utils.extension.prefixHashtag
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
@@ -119,6 +126,28 @@ fun JobsScreen(
                 )
             }, modifier = appBarBorderModifier,
                 )
+
+            JobHeader(
+                totalJobs = viewModel.uiState.totalJob,
+                completedJobs = viewModel.uiState.completedJobList.size,
+                contentTextStyle = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.padding(20.dp)
+            )
+
+            JobStatusBar(
+                totalJobs = viewModel.uiState.totalJob,
+                completedJobs = viewModel.uiState.completedJobList.size,
+                yetToStart = viewModel.uiState.yetToStartJobList.size,
+                inProgress = viewModel.uiState.inProgressJobList.size,
+                cancelled = viewModel.uiState.cancelledJobList.size,
+                inCompleted = viewModel.uiState.inCompleteJobList.size,
+                completedJobsColor = DarkMintGreen,
+                yetToStartColor = LightPurple,
+                inProgressColor = LightBlue,
+                cancelledColor = Yellow,
+                inCompletedColor = LightRed,
+                modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 20.dp)
+            )
 
             ScrollableTabRow(
                 selectedTabIndex = selectedTabIndex,

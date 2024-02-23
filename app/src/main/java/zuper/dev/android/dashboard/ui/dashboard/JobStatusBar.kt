@@ -36,6 +36,7 @@ fun JobStatusBar(
     inProgressColor: Color,
     cancelledColor: Color,
     inCompletedColor: Color,
+    modifier: Modifier = Modifier
 ) {
 
     val completedJobWidthRatio = remember {
@@ -91,8 +92,10 @@ fun JobStatusBar(
 
     Canvas(
         modifier = Modifier
+            .then(modifier)
             .fillMaxWidth()
             .height(30.dp)
+
     ) {
 
         val canvasWidth = size.width
