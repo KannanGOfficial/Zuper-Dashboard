@@ -176,7 +176,12 @@ fun JobsScreen(
                     items(viewModel.getJobList(selectedIndex)) {
                         JobItem(modifier = cardBorderModifier,
                             jobNumber = it.jobNumber.toString().prefixHashtag(),
-                            jobTitle = it.title)
+                            jobTitle = it.title,
+                            jobDescription = Timezone.getFormattedTime(
+                                startTime = it.startTime,
+                                endTime = it.endTime
+                            )
+                        )
                     }
                 }
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -193,6 +198,7 @@ fun JobItem(
     modifier: Modifier,
     jobNumber: String = "#121",
     jobTitle: String = "Interior design",
+    jobDescription : String
 ) {
     Box(
         modifier = Modifier
@@ -203,7 +209,7 @@ fun JobItem(
         Column {
             Text(text = jobNumber, modifier = Modifier.fillMaxWidth())
             Text(text = jobTitle, modifier = Modifier.fillMaxWidth())
-            Text(text = "Today, 10.30 - 11.00 AM", modifier = Modifier.fillMaxWidth())
+            Text(text = /*"Today, 10.30 - 11.00 AM"*/jobDescription, modifier = Modifier.fillMaxWidth())
         }
     }
 }
@@ -220,8 +226,8 @@ fun PreviewJobsScreen() {
             .fillMaxSize()
             .padding(15.dp), contentAlignment = Alignment.Center
     ) {
-        JobItem(
+        /*JobItem(
             modifier = cardBorderModifier
-        )
+        )*/
     }
 }

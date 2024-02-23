@@ -9,6 +9,15 @@ fun String.prefixDollar() =
 fun String.prefixHashtag() =
     "#$this"
 
+fun String.suffixComma() =
+    "$this, "
+
+fun String.prefixIfen() =
+    " - $this"
+
+fun String.prefixArrow() =
+    " -> $this"
+
 fun String.formatTitleCase(): String {
     return if (isNotBlank() && isNotEmpty()) {
         var firstLetter = get(0).uppercaseChar()
