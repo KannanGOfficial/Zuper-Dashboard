@@ -12,6 +12,7 @@ import zuper.dev.android.dashboard.utils.extension.prefixIfen
 import zuper.dev.android.dashboard.utils.extension.suffixComma
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class JobsViewModel(
     private val dataRepository: DataRepository
@@ -76,14 +77,15 @@ object Timezone {
             startTimeObj.format(dateFormatter).suffixComma()
         }
 
-        output += startTimeObj.format(timeFormatter)
+//        output += startTimeObj.format(timeFormatter)
 
-        val endFormattedTime = endTimeObj.format(timeFormatter)
+        val endFormattedTime = endTimeObj.format(timeFormatterWithAMPM)
 
-        output += if(startTimeObj.dayOfMonth == endTimeObj.dayOfMonth){
-            endFormattedTime.prefixIfen()
-        }else{
-            endTimeObj.format(dateFormatter).prefixArrow().suffixComma() + endFormattedTime
+        output += if (startTimeObj.dayOfMonth == endTimeObj.dayOfMonth) {
+            startTimeObj.format(timeFormatter) + endFormattedTime.prefixIfen()
+        } else {
+            startTimeObj.format(timeFormatterWithAMPM) + endTimeObj.format(dateFormatter)
+                .prefixArrow().suffixComma() + endFormattedTime
         }
 
         return output
@@ -91,7 +93,8 @@ object Timezone {
 
     private val dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
 
-    private val timeFormatter = DateTimeFormatter.ofPattern("hh:mm a")
+    private val timeFormatterWithAMPM = DateTimeFormatter.ofPattern("hh:mm a").withLocale(Locale.ENGLISH);
+    private val timeFormatter = DateTimeFormatter.ofPattern("hh:mm")
 
     val greetingFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd'th' yyyy")
 
