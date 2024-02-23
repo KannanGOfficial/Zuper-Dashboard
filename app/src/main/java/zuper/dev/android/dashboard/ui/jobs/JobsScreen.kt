@@ -155,7 +155,7 @@ fun JobsScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .verticalScroll(rememberScrollState()),
-                edgePadding = 0.dp
+                edgePadding = 0.dp,
 
             ) {
                 tabItems.forEachIndexed { index, name ->
