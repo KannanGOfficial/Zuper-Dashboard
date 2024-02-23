@@ -93,5 +93,7 @@ object Timezone {
 
     private val timeFormatter = DateTimeFormatter.ofPattern("hh:mm a")
 
+    val greetingFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd'th' yyyy")
+
     private val isoFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 }

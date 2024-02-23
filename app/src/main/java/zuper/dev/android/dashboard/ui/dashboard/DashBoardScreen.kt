@@ -36,6 +36,7 @@ import androidx.navigation.NavHostController
 import zuper.dev.android.dashboard.R
 import zuper.dev.android.dashboard.data.DataRepository
 import zuper.dev.android.dashboard.data.remote.ApiDataSource
+import zuper.dev.android.dashboard.ui.jobs.Timezone
 import zuper.dev.android.dashboard.ui.theme.Yellow
 import zuper.dev.android.dashboard.ui.theme.DarkMintGreen
 import zuper.dev.android.dashboard.ui.theme.LightRed
@@ -58,10 +59,7 @@ fun DashBoardScreen(
     }
 
     val currentDate = LocalDate.now()
-    val day = currentDate.dayOfWeek.name
-    val month = currentDate.month.name
-    val date = currentDate.dayOfMonth
-    val year = currentDate.year
+    val greetingMessage = LocalDate.now().format(Timezone.greetingFormatter)
 
     val cardBorderModifier = Modifier.border(
         BorderStroke(1.dp, Color.LightGray),
@@ -95,10 +93,7 @@ fun DashBoardScreen(
                 Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {
 
                     GreetingCard(
-                        day = day.formatTitleCase(),
-                        date = date,
-                        month = month.formatTitleCase(),
-                        year = year,
+                        todayDateInGreetingFormat = greetingMessage,
                         modifier = cardBorderModifier
                     )
 
@@ -125,10 +120,7 @@ fun DashBoardScreen(
 
 @Composable
 fun GreetingCard(
-    day: String,
-    date: Int,
-    month: String,
-    year: Int,
+    todayDateInGreetingFormat : String,
     modifier: Modifier,
     greetingMessage: String = stringResource(R.string.hello),
     name: String = stringResource(R.string.vijay)
@@ -152,7 +144,7 @@ fun GreetingCard(
                     style = MaterialTheme.typography.titleLarge
                 )
                 Text(
-                    text = stringResource(R.string.date_format, day, month, date, year),
+                    text = todayDateInGreetingFormat,
                     style = MaterialTheme.typography.titleSmall
                 )
             }
