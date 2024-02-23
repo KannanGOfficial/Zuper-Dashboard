@@ -32,18 +32,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import zuper.dev.android.dashboard.R
-import zuper.dev.android.dashboard.data.DataRepository
-import zuper.dev.android.dashboard.data.remote.ApiDataSource
 import zuper.dev.android.dashboard.ui.jobs.Timezone
 import zuper.dev.android.dashboard.ui.theme.Yellow
 import zuper.dev.android.dashboard.ui.theme.DarkMintGreen
 import zuper.dev.android.dashboard.ui.theme.LightRed
 import zuper.dev.android.dashboard.ui.theme.LightBlue
 import zuper.dev.android.dashboard.ui.theme.LightPurple
-import zuper.dev.android.dashboard.utils.extension.formatTitleCase
 import zuper.dev.android.dashboard.utils.extension.prefixDollar
 import zuper.dev.android.dashboard.utils.navigation.Screens
 import java.time.LocalDate
@@ -54,11 +50,9 @@ import java.time.LocalDate
 fun DashBoardScreen(
     navHostController: NavHostController
 ) {
-//    val apiDataSource = ApiDataSource()
-//    val dataRepository = DataRepository(apiDataSource)
+
     val viewModel = hiltViewModel<DashboardViewModel>()
 
-    val currentDate = LocalDate.now()
     val greetingMessage = LocalDate.now().format(Timezone.greetingFormatter)
 
     val cardBorderModifier = Modifier.border(

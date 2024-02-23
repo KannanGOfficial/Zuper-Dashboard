@@ -38,15 +38,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import zuper.dev.android.dashboard.R
-import zuper.dev.android.dashboard.data.DataRepository
-import zuper.dev.android.dashboard.data.remote.ApiDataSource
 import zuper.dev.android.dashboard.ui.dashboard.JobHeader
 import zuper.dev.android.dashboard.ui.dashboard.JobStatusBar
 import zuper.dev.android.dashboard.ui.theme.DarkMintGreen
@@ -61,8 +57,6 @@ import zuper.dev.android.dashboard.utils.extension.prefixHashtag
 fun JobsScreen(
     navHostController: NavHostController
 ) {
-//    val apiDataSource = ApiDataSource()
-//    val dataRepository = DataRepository(apiDataSource)
     val viewModel = hiltViewModel<JobsViewModel>()
 
     val appBarBorderModifier = Modifier.border(
@@ -233,7 +227,6 @@ fun JobItem(
             Text(
                 text = jobNumber,
                 modifier = Modifier.fillMaxWidth(),
-//                style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 14.sp
             )
@@ -249,23 +242,5 @@ fun JobItem(
                 fontSize = 14.sp
                 )
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewJobsScreen() {
-//    JobsScreen(rememberNavController())
-    val cardBorderModifier = Modifier.border(
-        BorderStroke(1.dp, Color.LightGray), shape = RoundedCornerShape(5.dp)
-    )
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(15.dp), contentAlignment = Alignment.Center
-    ) {
-        /*JobItem(
-            modifier = cardBorderModifier
-        )*/
     }
 }
