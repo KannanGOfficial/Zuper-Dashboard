@@ -40,6 +40,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import zuper.dev.android.dashboard.R
@@ -233,18 +234,21 @@ fun JobItem(
             Text(
                 text = jobNumber,
                 modifier = Modifier.fillMaxWidth(),
-                style = MaterialTheme.typography.bodyMedium
+//                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 14.sp
             )
             Text(
                 text = jobTitle,
                 modifier = Modifier.fillMaxWidth(),
-                style = MaterialTheme.typography.titleSmall
+                style = MaterialTheme.typography.titleMedium
             )
             Text(
                 text = /*"Today, 10.30 - 11.00 AM"*/jobDescription,
                 modifier = Modifier.fillMaxWidth(),
-                style = MaterialTheme.typography.bodyMedium
-            )
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 14.sp
+                )
         }
     }
 }
