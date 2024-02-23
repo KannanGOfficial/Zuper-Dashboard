@@ -60,11 +60,11 @@ fun JobsScreen(
     val viewModel = hiltViewModel<JobsViewModel>()
 
     val appBarBorderModifier = Modifier.border(
-        BorderStroke(1.dp, Color.LightGray)
+        BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
     )
 
     val cardBorderModifier = Modifier.border(
-        BorderStroke(1.dp, Color.LightGray), shape = RoundedCornerShape(5.dp)
+        BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant), shape = RoundedCornerShape(5.dp)
     )
 
     val tabItems = listOf(

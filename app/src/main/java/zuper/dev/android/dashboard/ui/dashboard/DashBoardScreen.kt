@@ -58,12 +58,12 @@ fun DashBoardScreen(
     val greetingMessage = LocalDate.now().format(Timezone.greetingFormatter)
 
     val cardBorderModifier = Modifier.border(
-        BorderStroke(1.dp, Color.LightGray),
+        BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
         shape = RoundedCornerShape(5.dp)
     )
 
     val appBarBorderModifier = Modifier.border(
-        BorderStroke(1.dp, Color.LightGray)
+        BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
     )
 
 
@@ -186,7 +186,7 @@ fun JobStatusCard(
 
             Text(text = stringResource(R.string.job_stats), style = titleTextStyle)
 
-            Divider(color = Color.LightGray)
+            Divider()
 
             JobHeader(
                 totalJobs = uiState.totalJobs,
@@ -305,7 +305,7 @@ fun InvoiceStatusCard(
                 style = titleTextStyle
             )
 
-            Divider(color = Color.LightGray)
+            Divider()
 
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
