@@ -150,8 +150,8 @@ fun GreetingCard(
                 painter = painterResource(id = R.drawable.vijay),
                 contentDescription = stringResource(R.string.profile_picture),
                 modifier = Modifier
-                    .width(50.dp)
-                    .height(50.dp)
+                    .width(60.dp)
+                    .height(60.dp)
                     .clip(RoundedCornerShape(5.dp))
                     .border(2.dp, Color.LightGray, RoundedCornerShape(5.dp)),
                 contentScale = ContentScale.Crop
