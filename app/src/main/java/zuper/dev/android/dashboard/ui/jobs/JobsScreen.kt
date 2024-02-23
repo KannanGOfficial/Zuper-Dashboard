@@ -42,7 +42,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import zuper.dev.android.dashboard.R
 import zuper.dev.android.dashboard.ui.dashboard.JobHeader
 import zuper.dev.android.dashboard.ui.dashboard.JobStatusBar
@@ -155,7 +154,9 @@ fun JobsScreen(
                 selectedTabIndex = selectedTabIndex,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .verticalScroll(rememberScrollState())
+                    .verticalScroll(rememberScrollState()),
+                edgePadding = 0.dp
+
             ) {
                 tabItems.forEachIndexed { index, name ->
                     Tab(selected = index == selectedTabIndex, onClick = {
