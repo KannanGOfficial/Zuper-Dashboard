@@ -206,10 +206,12 @@ fun JobItem(
             .then(modifier)
             .padding(10.dp)
     ) {
-        Column {
-            Text(text = jobNumber, modifier = Modifier.fillMaxWidth())
-            Text(text = jobTitle, modifier = Modifier.fillMaxWidth())
-            Text(text = /*"Today, 10.30 - 11.00 AM"*/jobDescription, modifier = Modifier.fillMaxWidth())
+        Column(
+            verticalArrangement = Arrangement.spacedBy(7.dp)
+        ) {
+            Text(text = jobNumber, modifier = Modifier.fillMaxWidth(), style = MaterialTheme.typography.bodyMedium)
+            Text(text = jobTitle, modifier = Modifier.fillMaxWidth(), style = MaterialTheme.typography.titleSmall)
+            Text(text = /*"Today, 10.30 - 11.00 AM"*/jobDescription, modifier = Modifier.fillMaxWidth(), style = MaterialTheme.typography.bodyMedium)
         }
     }
 }
