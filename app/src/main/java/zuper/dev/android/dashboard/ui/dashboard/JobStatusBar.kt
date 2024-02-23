@@ -88,7 +88,6 @@ fun JobStatusBar(
             targetValue = (inCompleted.toFloat() / totalJobs)
         )
     }
-    val background = Color.White
 
     Canvas(
         modifier = Modifier

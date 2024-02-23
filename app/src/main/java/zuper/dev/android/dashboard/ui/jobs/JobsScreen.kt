@@ -56,7 +56,7 @@ import zuper.dev.android.dashboard.utils.extension.prefixHashtag
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun JobsScreen(
-    navHostController: NavHostController
+    onBackClick : () -> Unit
 ) {
     val viewModel = hiltViewModel<JobsViewModel>()
 
@@ -114,7 +114,7 @@ fun JobsScreen(
 
             TopAppBar(
                 navigationIcon = {
-                    IconButton(onClick = { navHostController.popBackStack() }) {
+                    IconButton(onClick = { onBackClick()}) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "back_icon")
                     }
                 },
