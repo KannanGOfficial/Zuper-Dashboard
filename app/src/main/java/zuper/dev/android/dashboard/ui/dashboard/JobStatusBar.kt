@@ -100,12 +100,6 @@ fun JobStatusBar(
 
         val canvasWidth = size.width
 
-        drawRoundRect(
-            color =background,
-            size = size,
-            cornerRadius = CornerRadius(10F)
-        )
-
 
         val completedJobsWidth = completedJobWidthRatio.value * canvasWidth
         val yetToStartWidth = yetToStartWidthRatio.value * canvasWidth + completedJobsWidth

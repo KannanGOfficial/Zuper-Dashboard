@@ -24,6 +24,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ScrollableTabRow
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -108,7 +109,7 @@ fun JobsScreen(
     }
 
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Surface(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
 
             TopAppBar(
@@ -164,13 +165,13 @@ fun JobsScreen(
                             Text(
                                 text = name,
                                 fontWeight = FontWeight.Bold,
-                                color = Color.Black
+//                                color = Color.Black
                             )
                         else
                             Text(
                                 text = name,
                                 fontWeight = FontWeight.Medium,
-                                color = Color.Black
+//                                color = Color.Black
                             )
                     })
                 }
