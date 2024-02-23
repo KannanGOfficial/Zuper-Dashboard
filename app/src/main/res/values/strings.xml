@@ -10,7 +10,7 @@
     <string name="hello">Hello</string>
     <string name="vijay">Vijay</string>
     <string name="dashboard">Dashboard</string>
-    <string name="greeting_message_format">%1$s, %2$s !👋</string>
+    <string name="greeting_message_format">%1$s, %2$s ! 👋</string>
     <string name="date_format">%1$s, %2$s %3$sth %4$s</string>
     <string name="completed">Completed</string>
     <string name="in_completed">In-Complete</string>
