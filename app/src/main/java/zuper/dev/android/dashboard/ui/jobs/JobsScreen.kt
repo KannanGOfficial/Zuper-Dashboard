@@ -42,7 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import zuper.dev.android.dashboard.R
-import zuper.dev.android.dashboard.ui.dashboard.JobHeader
+import zuper.dev.android.dashboard.ui.dashboard.StatsHeader
 import zuper.dev.android.dashboard.ui.dashboard.StatsBar
 import zuper.dev.android.dashboard.utils.extension.prefixHashtag
 
@@ -121,10 +121,14 @@ fun JobsScreen(
                 modifier = appBarBorderModifier,
             )
 
-            JobHeader(
-                totalJobs = viewModel.uiState.totalJob,
-                completedJobs = viewModel.uiState.completedJobList.size,
-                contentTextStyle = MaterialTheme.typography.bodySmall,
+            StatsHeader(
+                startText = stringResource(R.string.jobs, viewModel.uiState.totalJob),
+                endText = stringResource(
+                    R.string.of_jobs_completed,
+                    viewModel.uiState.completedJobList.size,
+                    viewModel.uiState.totalJob
+                ), startTextStyle = MaterialTheme.typography.bodySmall,
+                endTextStyle = MaterialTheme.typography.bodySmall,
                 modifier = Modifier.padding(top = 20.dp, start = 20.dp, end = 20.dp, bottom = 10.dp)
             )
 

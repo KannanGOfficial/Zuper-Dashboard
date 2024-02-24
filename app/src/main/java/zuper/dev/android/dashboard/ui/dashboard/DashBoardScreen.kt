@@ -2,7 +2,6 @@ package zuper.dev.android.dashboard.ui.dashboard
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -32,9 +31,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import zuper.dev.android.dashboard.R
 import zuper.dev.android.dashboard.ui.jobs.Timezone
 import zuper.dev.android.dashboard.ui.theme.Yellow
@@ -43,14 +42,13 @@ import zuper.dev.android.dashboard.ui.theme.LightRed
 import zuper.dev.android.dashboard.ui.theme.LightBlue
 import zuper.dev.android.dashboard.ui.theme.LightPurple
 import zuper.dev.android.dashboard.utils.extension.prefixDollar
-import zuper.dev.android.dashboard.utils.navigation.Screens
 import java.time.LocalDate
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DashBoardScreen(
-    navHostController: NavHostController
+    gotoJobScreen: () -> Unit
 ) {
 
     val viewModel = hiltViewModel<DashboardViewModel>()
@@ -89,18 +87,16 @@ fun DashBoardScreen(
                 Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {
 
                     GreetingCard(
-                        todayDateInGreetingFormat = greetingMessage,
-                        modifier = cardBorderModifier
+                        todayDateInGreetingFormat = greetingMessage, modifier = cardBorderModifier
                     )
 
                     JobStatusCard(
                         uiState = viewModel.uiState,
                         modifier = cardBorderModifier,
                         titleTextStyle = MaterialTheme.typography.titleMedium,
-                        contentTextStyle = MaterialTheme.typography.bodySmall
-                    ) {
-                        navHostController.navigate(Screens.JOBS_SCREEN.route)
-                    }
+                        contentTextStyle = MaterialTheme.typography.bodySmall,
+                        onClick = gotoJobScreen
+                    )
 
                     InvoiceStatusCard(
                         uiState = viewModel.uiState,
@@ -116,7 +112,7 @@ fun DashBoardScreen(
 
 @Composable
 fun GreetingCard(
-    todayDateInGreetingFormat : String,
+    todayDateInGreetingFormat: String,
     modifier: Modifier,
     greetingMessage: String = stringResource(R.string.hello),
     name: String = stringResource(R.string.vijay)
@@ -140,8 +136,7 @@ fun GreetingCard(
                     style = MaterialTheme.typography.titleLarge
                 )
                 Text(
-                    text = todayDateInGreetingFormat,
-                    style = MaterialTheme.typography.titleSmall
+                    text = todayDateInGreetingFormat, style = MaterialTheme.typography.titleSmall
                 )
             }
 
@@ -171,27 +166,27 @@ fun JobStatusCard(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable {
-                onClick()
-            }
+            .clickable(onClick = onClick)
             .then(modifier)
             .padding(10.dp)
 
     ) {
 
         Column(
-            verticalArrangement = Arrangement.spacedBy(spacing),
-            modifier = Modifier.fillMaxWidth()
+            verticalArrangement = Arrangement.spacedBy(spacing), modifier = Modifier.fillMaxWidth()
         ) {
 
             Text(text = stringResource(R.string.job_stats), style = titleTextStyle)
 
             Divider()
 
-            JobHeader(
-                totalJobs = uiState.totalJobs,
-                completedJobs = uiState.completedJobs,
-                contentTextStyle = contentTextStyle
+            StatsHeader(
+                startText = stringResource(R.string.jobs, uiState.totalJobs),
+                endText = stringResource(
+                    R.string.of_jobs_completed, uiState.completedJobs, uiState.totalJobs
+                ),
+                startTextStyle = contentTextStyle,
+                endTextStyle = contentTextStyle
             )
 
             StatsBar(
@@ -199,8 +194,7 @@ fun JobStatusCard(
             )
 
             Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly
+                modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 StatusText(
                     progressText = stringResource(R.string.yet_to_start),
@@ -217,8 +211,7 @@ fun JobStatusCard(
             }
 
             Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly
+                modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 StatusText(
                     progressText = stringResource(R.string.cancelled),
@@ -243,34 +236,9 @@ fun JobStatusCard(
                 )
             }
         }
-
     }
 }
 
-@Composable
-fun StatusText(
-    progressText: String,
-    progress: String,
-    progressColor: Color,
-    textStyle: TextStyle
-) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(5.dp)
-    ) {
-        Box(
-            modifier = Modifier
-                .width(8.dp)
-                .height(8.dp)
-                .background(color = progressColor)
-        )
-        Text(
-            text = stringResource(R.string.progress_format, progressText, progress),
-            style = textStyle
-        )
-    }
-
-}
 
 @Composable
 fun InvoiceStatusCard(
@@ -297,26 +265,17 @@ fun InvoiceStatusCard(
 
             Divider()
 
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(
-                    text = stringResource(R.string.total_value_format, uiState.totalValue),
-                    style = contentTextStyle
-                )
-
-                Text(
-                    text = stringResource(R.string.collected_format, uiState.paid),
-                    style = contentTextStyle
-                )
-            }
+            StatsHeader(
+                startTextStyle = contentTextStyle,
+                endTextStyle = contentTextStyle.copy(fontWeight = FontWeight.Bold),
+                startText = stringResource(R.string.total_value_format, uiState.totalValue),
+                endText = stringResource(R.string.collected_format, uiState.paid),
+            )
 
             StatsBar(list = uiState.invoiceListInfo)
 
             Row(
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                modifier = Modifier.fillMaxWidth()
+                horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()
             ) {
                 StatusText(
                     progressText = stringResource(R.string.draft),
@@ -334,8 +293,7 @@ fun InvoiceStatusCard(
             }
 
             Row(
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                modifier = Modifier.fillMaxWidth()
+                horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()
             ) {
                 StatusText(
                     progressText = stringResource(R.string.paid),
