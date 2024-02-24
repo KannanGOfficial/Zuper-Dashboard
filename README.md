@@ -1,8 +1,4 @@
 
-Certainly! Here's a basic template for your Zuper DashBoard app README file:
-
-markdown
-Copy code
 # Zuper DashBoard
 
 ## Features
