@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.onEach
 import zuper.dev.android.dashboard.data.DataRepository
 import zuper.dev.android.dashboard.data.model.InvoiceStatus
 import zuper.dev.android.dashboard.data.model.JobStatus
-import zuper.dev.android.dashboard.utils.extension.sum
 import javax.inject.Inject
 
 @HiltViewModel
@@ -34,34 +33,78 @@ class DashboardViewModel @Inject constructor(
                 val cancelled = it.count { it.status == JobStatus.Canceled }
                 val inCompleted = it.count { it.status == JobStatus.Incomplete }
 
+                val list = listOf(
+                    StatsBarInfo(
+                        color = JobStatus.Completed.color,
+                        count = completedJobs
+                    ),
+                    StatsBarInfo(
+                        color = JobStatus.YetToStart.color,
+                        count = yetToStart
+                    ),
+                    StatsBarInfo(
+                        color = JobStatus.InProgress.color,
+                        count = inProgress
+                    ),
+                    StatsBarInfo(
+                        color = JobStatus.Canceled.color,
+                        count = cancelled
+                    ),
+                    StatsBarInfo(
+                        color = JobStatus.Incomplete.color,
+                        count = inCompleted
+                    ),
+                )
+
                 uiState = uiState.copy(
                     totalJobs = totalJobs,
                     completedJobs = completedJobs,
                     yetToStart = yetToStart,
                     inProgress = inProgress,
                     cancelled = cancelled,
-                    inCompleted = inCompleted
+                    inCompleted = inCompleted,
+                    jobListInfo = list.sortedBy { it.count }
                 )
             }
             .launchIn(viewModelScope)
 
         dataRepository.observeInvoices()
             .onEach {
-                val totalValue = it.sum { it.total }
-                val paid = it.filter { it.status == InvoiceStatus.Paid }.sum { it.total }
+                val totalValue = it.sumOf { it.total }
+                val paid = it.filter { it.status == InvoiceStatus.Paid }.sumOf { it.total }
                 val draft =
-                    it.filter { it.status == InvoiceStatus.Draft }.sum { it.total }
+                    it.filter { it.status == InvoiceStatus.Draft }.sumOf { it.total }
                 val pending =
-                    it.filter { it.status == InvoiceStatus.Pending }.sum { it.total }
+                    it.filter { it.status == InvoiceStatus.Pending }.sumOf { it.total }
                 val badDebit =
-                    it.filter { it.status == InvoiceStatus.BadDebt }.sum { it.total }
+                    it.filter { it.status == InvoiceStatus.BadDebt }.sumOf { it.total }
+
+                val invoiceList = listOf(
+                    StatsBarInfo(
+                        color = InvoiceStatus.Draft.color,
+                        count = draft
+                    ),
+                    StatsBarInfo(
+                        color = InvoiceStatus.Pending.color,
+                        count = pending
+                    ),
+                    StatsBarInfo(
+                        color = InvoiceStatus.Paid.color,
+                        count = paid
+                    ),
+                    StatsBarInfo(
+                        color = InvoiceStatus.BadDebt.color,
+                        count = badDebit
+                    ),
+                )
 
                 uiState = uiState.copy(
                     totalValue = totalValue,
                     paid = paid,
                     draft = draft,
                     pending = pending,
-                    badDebit = badDebit
+                    badDebit = badDebit,
+                    invoiceListInfo = invoiceList.sortedBy { it.count }
                 )
             }.launchIn(viewModelScope)
     }
@@ -75,9 +118,12 @@ data class DashBoardUiState(
     val inProgress: Int = 0,
     val cancelled: Int = 0,
     val inCompleted: Int = 0,
-    val totalValue: Long = 0L,
-    val draft: Long = 0L,
-    val pending: Long = 0L,
-    val paid: Long = 0L,
-    val badDebit: Long = 0L
+    val totalValue: Int = 0,
+    val draft: Int = 0,
+    val pending: Int = 0,
+    val paid: Int = 0,
+    val badDebit: Int = 0,
+    val jobListInfo: List<StatsBarInfo> = emptyList(),
+    val invoiceListInfo: List<StatsBarInfo> = emptyList()
 )
+

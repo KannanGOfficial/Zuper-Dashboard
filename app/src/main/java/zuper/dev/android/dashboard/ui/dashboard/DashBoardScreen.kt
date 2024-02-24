@@ -194,18 +194,8 @@ fun JobStatusCard(
                 contentTextStyle = contentTextStyle
             )
 
-            JobStatusBar(
-                totalJobs = uiState.totalJobs,
-                completedJobs = uiState.completedJobs,
-                yetToStart = uiState.yetToStart,
-                inProgress = uiState.inProgress,
-                cancelled = uiState.cancelled,
-                inCompleted = uiState.inCompleted,
-                completedJobsColor = DarkMintGreen,
-                yetToStartColor = LightPurple,
-                inProgressColor = LightBlue,
-                cancelledColor = Yellow,
-                inCompletedColor = LightRed
+            StatsBar(
+                list = uiState.jobListInfo
             )
 
             Row(
@@ -322,17 +312,7 @@ fun InvoiceStatusCard(
                 )
             }
 
-            InvoiceStatusBar(
-                totalValue = uiState.totalValue,
-                draft = uiState.draft,
-                pending = uiState.pending,
-                paid = uiState.paid,
-                badDebit = uiState.badDebit,
-                draftColor = Yellow,
-                pendingColor = LightBlue,
-                paidColor = DarkMintGreen,
-                badDebitColor = LightRed
-            )
+            StatsBar(list = uiState.invoiceListInfo)
 
             Row(
                 horizontalArrangement = Arrangement.SpaceEvenly,

@@ -1,5 +1,12 @@
 package zuper.dev.android.dashboard.data.model
 
+import androidx.compose.ui.graphics.Color
+import zuper.dev.android.dashboard.ui.theme.DarkMintGreen
+import zuper.dev.android.dashboard.ui.theme.LightBlue
+import zuper.dev.android.dashboard.ui.theme.LightPurple
+import zuper.dev.android.dashboard.ui.theme.LightRed
+import zuper.dev.android.dashboard.ui.theme.Yellow
+
 
 /**
  * A simple API model representing a Job
@@ -15,10 +22,10 @@ data class JobApiModel(
     val status: JobStatus
 )
 
-enum class JobStatus {
-    YetToStart,
-    InProgress,
-    Canceled,
-    Completed,
-    Incomplete
+enum class JobStatus(val color: Color) {
+    YetToStart(LightPurple),
+    InProgress(LightBlue),
+    Canceled(Yellow),
+    Completed(DarkMintGreen),
+    Incomplete(LightRed)
 }
