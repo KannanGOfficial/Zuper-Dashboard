@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import zuper.dev.android.dashboard.data.DataRepository
 import zuper.dev.android.dashboard.data.model.JobApiModel
 import zuper.dev.android.dashboard.data.model.JobStatus
+import zuper.dev.android.dashboard.ui.dashboard.StatsBarInfo
 import zuper.dev.android.dashboard.utils.extension.prefixArrow
 import zuper.dev.android.dashboard.utils.extension.prefixIfen
 import zuper.dev.android.dashboard.utils.extension.suffixComma
@@ -32,6 +33,29 @@ class JobsViewModel @Inject constructor(
             val completedJobList = it.filter { it.status == JobStatus.Completed }
             val inCompleteJobList = it.filter { it.status == JobStatus.Incomplete }
 
+            val jobList = listOf(
+                StatsBarInfo(
+                    color = JobStatus.Completed.color,
+                    count = completedJobList.size
+                ),
+                StatsBarInfo(
+                    color = JobStatus.YetToStart.color,
+                    count = yetToStartJobList.size
+                ),
+                StatsBarInfo(
+                    color = JobStatus.InProgress.color,
+                    count = inProgressJobList.size
+                ),
+                StatsBarInfo(
+                    color = JobStatus.Canceled.color,
+                    count = cancelledJobList.size
+                ),
+                StatsBarInfo(
+                    color = JobStatus.Incomplete.color,
+                    count = inCompleteJobList.size
+                ),
+            )
+
             uiState = uiState.copy(
                 totalJob = it.size,
                 yetToStartJobList = yetToStartJobList,
@@ -39,6 +63,7 @@ class JobsViewModel @Inject constructor(
                 cancelledJobList = cancelledJobList,
                 completedJobList = completedJobList,
                 inCompleteJobList = inCompleteJobList,
+                jobListInfo = jobList.sortedBy { it.count }
             )
         }
     }
@@ -62,6 +87,7 @@ data class JobsUiState(
     val cancelledJobList: List<JobApiModel> = emptyList(),
     val completedJobList: List<JobApiModel> = emptyList(),
     val inCompleteJobList: List<JobApiModel> = emptyList(),
+    val jobListInfo: List<StatsBarInfo> = emptyList(),
 )
 
 object Timezone {

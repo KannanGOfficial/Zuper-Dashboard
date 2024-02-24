@@ -33,7 +33,7 @@ class DashboardViewModel @Inject constructor(
                 val cancelled = it.count { it.status == JobStatus.Canceled }
                 val inCompleted = it.count { it.status == JobStatus.Incomplete }
 
-                val list = listOf(
+                val jobList = listOf(
                     StatsBarInfo(
                         color = JobStatus.Completed.color,
                         count = completedJobs
@@ -63,7 +63,7 @@ class DashboardViewModel @Inject constructor(
                     inProgress = inProgress,
                     cancelled = cancelled,
                     inCompleted = inCompleted,
-                    jobListInfo = list.sortedBy { it.count }
+                    jobListInfo = jobList.sortedBy { it.count }
                 )
             }
             .launchIn(viewModelScope)

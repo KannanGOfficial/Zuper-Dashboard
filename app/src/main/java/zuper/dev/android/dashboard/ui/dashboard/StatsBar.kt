@@ -21,10 +21,9 @@ fun StatsBar(
     modifier: Modifier = Modifier
 ) {
     Canvas(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(15.dp)
-            .then(modifier)
     ) {
         var prevWidth = 0F
 

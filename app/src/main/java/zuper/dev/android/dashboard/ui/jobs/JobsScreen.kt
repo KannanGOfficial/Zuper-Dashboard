@@ -36,7 +36,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -44,18 +43,13 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import zuper.dev.android.dashboard.R
 import zuper.dev.android.dashboard.ui.dashboard.JobHeader
-import zuper.dev.android.dashboard.ui.dashboard.JobStatusBar
-import zuper.dev.android.dashboard.ui.theme.DarkMintGreen
-import zuper.dev.android.dashboard.ui.theme.LightBlue
-import zuper.dev.android.dashboard.ui.theme.LightPurple
-import zuper.dev.android.dashboard.ui.theme.LightRed
-import zuper.dev.android.dashboard.ui.theme.Yellow
+import zuper.dev.android.dashboard.ui.dashboard.StatsBar
 import zuper.dev.android.dashboard.utils.extension.prefixHashtag
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun JobsScreen(
-    onBackClick : () -> Unit
+    onBackClick: () -> Unit
 ) {
     val viewModel = hiltViewModel<JobsViewModel>()
 
@@ -64,7 +58,8 @@ fun JobsScreen(
     )
 
     val cardBorderModifier = Modifier.border(
-        BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant), shape = RoundedCornerShape(5.dp)
+        BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+        shape = RoundedCornerShape(5.dp)
     )
 
     val tabItems = listOf(
@@ -113,7 +108,7 @@ fun JobsScreen(
 
             TopAppBar(
                 navigationIcon = {
-                    IconButton(onClick = { onBackClick()}) {
+                    IconButton(onClick = { onBackClick() }) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "back_icon")
                     }
                 },
@@ -133,18 +128,8 @@ fun JobsScreen(
                 modifier = Modifier.padding(top = 20.dp, start = 20.dp, end = 20.dp, bottom = 10.dp)
             )
 
-            JobStatusBar(
-                totalJobs = viewModel.uiState.totalJob,
-                completedJobs = viewModel.uiState.completedJobList.size,
-                yetToStart = viewModel.uiState.yetToStartJobList.size,
-                inProgress = viewModel.uiState.inProgressJobList.size,
-                cancelled = viewModel.uiState.cancelledJobList.size,
-                inCompleted = viewModel.uiState.inCompleteJobList.size,
-                completedJobsColor = DarkMintGreen,
-                yetToStartColor = LightPurple,
-                inProgressColor = LightBlue,
-                cancelledColor = Yellow,
-                inCompletedColor = LightRed,
+            StatsBar(
+                list = viewModel.uiState.jobListInfo,
                 modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 20.dp)
             )
 
@@ -157,7 +142,7 @@ fun JobsScreen(
                     .verticalScroll(rememberScrollState()),
                 edgePadding = 0.dp,
 
-            ) {
+                ) {
                 tabItems.forEachIndexed { index, name ->
                     Tab(selected = index == selectedTabIndex, onClick = {
                         selectedTabIndex = index
@@ -166,13 +151,11 @@ fun JobsScreen(
                             Text(
                                 text = name,
                                 fontWeight = FontWeight.Bold,
-//                                color = Color.Black
                             )
                         else
                             Text(
                                 text = name,
                                 fontWeight = FontWeight.Medium,
-//                                color = Color.Black
                             )
                     })
                 }
@@ -238,11 +221,11 @@ fun JobItem(
                 style = MaterialTheme.typography.titleMedium
             )
             Text(
-                text = /*"Today, 10.30 - 11.00 AM"*/jobDescription,
+                text = jobDescription,
                 modifier = Modifier.fillMaxWidth(),
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 14.sp
-                )
+            )
         }
     }
 }
