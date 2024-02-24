@@ -30,10 +30,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -52,11 +48,11 @@ fun JobsScreen(onBackClick: () -> Unit) {
     val viewModel = hiltViewModel<JobsViewModel>()
 
     val appBarBorderModifier = Modifier.border(
-        BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
+        BorderStroke(.1.dp, MaterialTheme.colorScheme.outlineVariant)
     )
 
     val cardBorderModifier = Modifier.border(
-        BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+        BorderStroke(.1.dp, MaterialTheme.colorScheme.outlineVariant),
         shape = RoundedCornerShape(5.dp)
     )
 
@@ -150,11 +146,14 @@ fun JobsScreen(onBackClick: () -> Unit) {
                             Text(
                                 text = name,
                                 fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onBackground
                             )
                         else
                             Text(
                                 text = name,
                                 fontWeight = FontWeight.Medium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+
                             )
                     })
                 }

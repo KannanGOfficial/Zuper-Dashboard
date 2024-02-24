@@ -56,12 +56,12 @@ fun DashBoardScreen(
     val greetingMessage = LocalDate.now().format(TimeFormatter.greetingFormatter)
 
     val cardBorderModifier = Modifier.border(
-        BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+        BorderStroke(.1.dp, MaterialTheme.colorScheme.outlineVariant),
         shape = RoundedCornerShape(5.dp)
     )
 
     val appBarBorderModifier = Modifier.border(
-        BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
+        BorderStroke(.1.dp, MaterialTheme.colorScheme.outlineVariant)
     )
 
 
