@@ -26,14 +26,14 @@ fun StatsBar(
             .height(15.dp)
     ) {
         var prevWidth = 0F
-
+        val sumOfList = list.sumOf { it.count }
         list.forEach {
             drawRoundRect(
                 color = it.color,
                 size = Size(size.width - prevWidth, size.height),
                 cornerRadius = CornerRadius(10F)
             )
-            prevWidth += (it.count * size.width) / list.sumOf { it.count }
+            prevWidth += (it.count * size.width) / sumOfList
         }
     }
 }

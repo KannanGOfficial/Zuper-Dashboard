@@ -108,13 +108,13 @@ fun JobsScreen(
 
             TopAppBar(
                 navigationIcon = {
-                    IconButton(onClick = { onBackClick() }) {
+                    IconButton(onClick = onBackClick) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "back_icon")
                     }
                 },
                 title = {
                     Text(
-                        text = "Jobs (${viewModel.uiState.totalJob})",
+                        text = stringResource(R.string.jobs_format, viewModel.uiState.totalJob),
                         style = MaterialTheme.typography.titleLarge
                     )
                 },

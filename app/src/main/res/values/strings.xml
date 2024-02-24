@@ -22,4 +22,5 @@
     <string name="pending">Pending</string>
     <string name="paid">Paid</string>
     <string name="bad_debit">Bad Debit</string>
+    <string name="jobs_format">Jobs (%1$s)</string>
 </resources>
