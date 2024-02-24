@@ -25,13 +25,13 @@ class DashboardViewModel @Inject constructor(
     init {
         dataRepository.observeJobs()
             .distinctUntilChanged()
-            .onEach {
-                val totalJobs = it.size
-                val completedJobs = it.count { it.status == JobStatus.Completed }
-                val yetToStart = it.count { it.status == JobStatus.YetToStart }
-                val inProgress = it.count { it.status == JobStatus.InProgress }
-                val cancelled = it.count { it.status == JobStatus.Canceled }
-                val inCompleted = it.count { it.status == JobStatus.Incomplete }
+            .onEach { job ->
+                val totalJobs = job.size
+                val completedJobs = job.count { it.status == JobStatus.Completed }
+                val yetToStart = job.count { it.status == JobStatus.YetToStart }
+                val inProgress = job.count { it.status == JobStatus.InProgress }
+                val cancelled = job.count { it.status == JobStatus.Canceled }
+                val inCompleted = job.count { it.status == JobStatus.Incomplete }
 
                 val jobList = listOf(
                     StatsBarInfo(
@@ -69,15 +69,15 @@ class DashboardViewModel @Inject constructor(
             .launchIn(viewModelScope)
 
         dataRepository.observeInvoices()
-            .onEach {
-                val totalValue = it.sumOf { it.total }
-                val paid = it.filter { it.status == InvoiceStatus.Paid }.sumOf { it.total }
+            .onEach { invoice ->
+                val totalValue = invoice.sumOf { it.total }
+                val paid = invoice.filter { it.status == InvoiceStatus.Paid }.sumOf { it.total }
                 val draft =
-                    it.filter { it.status == InvoiceStatus.Draft }.sumOf { it.total }
+                    invoice.filter { it.status == InvoiceStatus.Draft }.sumOf { it.total }
                 val pending =
-                    it.filter { it.status == InvoiceStatus.Pending }.sumOf { it.total }
+                    invoice.filter { it.status == InvoiceStatus.Pending }.sumOf { it.total }
                 val badDebit =
-                    it.filter { it.status == InvoiceStatus.BadDebt }.sumOf { it.total }
+                    invoice.filter { it.status == InvoiceStatus.BadDebt }.sumOf { it.total }
 
                 val invoiceList = listOf(
                     StatsBarInfo(
