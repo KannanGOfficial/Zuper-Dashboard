@@ -182,9 +182,6 @@ fun JobsScreen(onBackClick: () -> Unit) {
                         )
                     }
                 }
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Text(text = tabItems[selectedIndex])
-                }
             }
         }
     }

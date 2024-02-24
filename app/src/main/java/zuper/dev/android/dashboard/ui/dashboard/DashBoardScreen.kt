@@ -41,7 +41,7 @@ import zuper.dev.android.dashboard.ui.theme.LightRed
 import zuper.dev.android.dashboard.ui.theme.LightBlue
 import zuper.dev.android.dashboard.ui.theme.LightPurple
 import zuper.dev.android.dashboard.utils.extension.prefixDollar
-import zuper.dev.android.dashboard.utils.timeformatter.Timezone
+import zuper.dev.android.dashboard.utils.timeformatter.TimeFormatter
 import java.time.LocalDate
 
 
@@ -53,7 +53,7 @@ fun DashBoardScreen(
 
     val viewModel = hiltViewModel<DashboardViewModel>()
 
-    val greetingMessage = LocalDate.now().format(Timezone.greetingFormatter)
+    val greetingMessage = LocalDate.now().format(TimeFormatter.greetingFormatter)
 
     val cardBorderModifier = Modifier.border(
         BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
