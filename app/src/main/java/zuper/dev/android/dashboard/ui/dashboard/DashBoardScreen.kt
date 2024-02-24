@@ -35,13 +35,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import zuper.dev.android.dashboard.R
-import zuper.dev.android.dashboard.ui.jobs.Timezone
 import zuper.dev.android.dashboard.ui.theme.Yellow
 import zuper.dev.android.dashboard.ui.theme.DarkMintGreen
 import zuper.dev.android.dashboard.ui.theme.LightRed
 import zuper.dev.android.dashboard.ui.theme.LightBlue
 import zuper.dev.android.dashboard.ui.theme.LightPurple
 import zuper.dev.android.dashboard.utils.extension.prefixDollar
+import zuper.dev.android.dashboard.utils.timeformatter.Timezone
 import java.time.LocalDate
 
 

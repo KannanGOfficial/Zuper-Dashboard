@@ -9,12 +9,6 @@ import zuper.dev.android.dashboard.data.DataRepository
 import zuper.dev.android.dashboard.data.model.JobApiModel
 import zuper.dev.android.dashboard.data.model.JobStatus
 import zuper.dev.android.dashboard.ui.dashboard.StatsBarInfo
-import zuper.dev.android.dashboard.utils.extension.prefixArrow
-import zuper.dev.android.dashboard.utils.extension.prefixIfen
-import zuper.dev.android.dashboard.utils.extension.suffixComma
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,7 +20,7 @@ class JobsViewModel @Inject constructor(
         private set
 
     init {
-        dataRepository.getJobs().also {
+        dataRepository.getJobs().map(JobApiModel::toJob).also {
             val yetToStartJobList = it.filter { it.status == JobStatus.YetToStart }
             val inProgressJobList = it.filter { it.status == JobStatus.InProgress }
             val cancelledJobList = it.filter { it.status == JobStatus.Canceled }
@@ -68,7 +62,7 @@ class JobsViewModel @Inject constructor(
         }
     }
 
-    fun getJobList(index: Int): List<JobApiModel> =
+    fun getJobList(index: Int): List<Job> =
         when (index) {
             JobStatus.YetToStart.ordinal -> uiState.yetToStartJobList
             JobStatus.InProgress.ordinal -> uiState.inProgressJobList
@@ -82,50 +76,10 @@ class JobsViewModel @Inject constructor(
 
 data class JobsUiState(
     val totalJob: Int = 0,
-    val yetToStartJobList: List<JobApiModel> = emptyList(),
-    val inProgressJobList: List<JobApiModel> = emptyList(),
-    val cancelledJobList: List<JobApiModel> = emptyList(),
-    val completedJobList: List<JobApiModel> = emptyList(),
-    val inCompleteJobList: List<JobApiModel> = emptyList(),
+    val yetToStartJobList: List<Job> = emptyList(),
+    val inProgressJobList: List<Job> = emptyList(),
+    val cancelledJobList: List<Job> = emptyList(),
+    val completedJobList: List<Job> = emptyList(),
+    val inCompleteJobList: List<Job> = emptyList(),
     val jobListInfo: List<StatsBarInfo> = emptyList(),
 )
-
-object Timezone {
-    fun getFormattedTime(startTime: String, endTime: String): String {
-        var output = ""
-
-        val startTimeObj = LocalDateTime.parse(startTime, isoFormatter)
-        val endTimeObj = LocalDateTime.parse(endTime, isoFormatter)
-        val localDateTime = LocalDateTime.now()
-
-        println("TimeObject Checking : start -> $startTimeObj end -> $endTimeObj")
-
-        output += if (localDateTime.dayOfMonth == startTimeObj.dayOfMonth) {
-            "Today".suffixComma()
-        } else {
-            startTimeObj.format(dateFormatter).suffixComma()
-        }
-
-//        output += startTimeObj.format(timeFormatter)
-
-        val endFormattedTime = endTimeObj.format(timeFormatterWithAMPM)
-
-        output += if (startTimeObj.dayOfMonth == endTimeObj.dayOfMonth) {
-            startTimeObj.format(timeFormatter) + endFormattedTime.prefixIfen()
-        } else {
-            startTimeObj.format(timeFormatterWithAMPM) + endTimeObj.format(dateFormatter)
-                .prefixArrow().suffixComma() + endFormattedTime
-        }
-
-        return output
-    }
-
-    private val dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-
-    private val timeFormatterWithAMPM = DateTimeFormatter.ofPattern("hh:mm a").withLocale(Locale.ENGLISH);
-    private val timeFormatter = DateTimeFormatter.ofPattern("hh:mm")
-
-    val greetingFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd'th' yyyy")
-
-    private val isoFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-}

@@ -48,9 +48,8 @@ import zuper.dev.android.dashboard.utils.extension.prefixHashtag
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun JobsScreen(
-    onBackClick: () -> Unit
-) {
+fun JobsScreen(onBackClick: () -> Unit) {
+
     val viewModel = hiltViewModel<JobsViewModel>()
 
     val appBarBorderModifier = Modifier.border(
@@ -179,12 +178,7 @@ fun JobsScreen(
                     items(viewModel.getJobList(selectedIndex)) {
                         JobItem(
                             modifier = cardBorderModifier,
-                            jobNumber = it.jobNumber.toString().prefixHashtag(),
-                            jobTitle = it.title,
-                            jobDescription = Timezone.getFormattedTime(
-                                startTime = it.startTime,
-                                endTime = it.endTime
-                            )
+                            job = it,
                         )
                     }
                 }
@@ -200,9 +194,7 @@ fun JobsScreen(
 @Composable
 fun JobItem(
     modifier: Modifier,
-    jobNumber: String = "#121",
-    jobTitle: String = "Interior design",
-    jobDescription: String
+    job: Job
 ) {
     Box(
         modifier = Modifier
@@ -214,18 +206,18 @@ fun JobItem(
             verticalArrangement = Arrangement.spacedBy(7.dp)
         ) {
             Text(
-                text = jobNumber,
+                text = job.jobNumber.toString().prefixHashtag(),
                 modifier = Modifier.fillMaxWidth(),
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 14.sp
             )
             Text(
-                text = jobTitle,
+                text = job.title,
                 modifier = Modifier.fillMaxWidth(),
                 style = MaterialTheme.typography.titleMedium
             )
             Text(
-                text = jobDescription,
+                text = job.jobTimeDetails,
                 modifier = Modifier.fillMaxWidth(),
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 14.sp
