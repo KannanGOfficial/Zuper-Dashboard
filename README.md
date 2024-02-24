@@ -5,8 +5,6 @@ markdown
 Copy code
 # Zuper DashBoard
 
-Zuper DashBoard is a modern Android application that utilizes the latest technologies to provide a clean and efficient dashboard experience.
-
 ## Features
 
 * **Single Activity:** Built with a single activity architecture for simplicity and performance.
