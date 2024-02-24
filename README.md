@@ -14,3 +14,6 @@
 * **Clean Architecture:** Follows clean architecture principles to promote separation of concerns and maintainability.
 
 * **Custom Dashboard UI Chart:** Incorporates a custom-designed dashboard UI chart to present data in an intuitive and visually appealing way.
+
+
+![Zuper DashBoard Screenshot 1](app/screenshot/Screenshot_20240224-134430.png)
