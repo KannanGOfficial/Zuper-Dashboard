@@ -70,6 +70,12 @@ class JobsViewModel @Inject constructor(
             JobStatus.Incomplete.ordinal -> uiState.inCompleteJobList
             else -> emptyList()
         }
+
+    fun updateSelectedTabIndex(index: Int) {
+        uiState = uiState.copy(
+            selectedTabIndex = index
+        )
+    }
 }
 
 
@@ -81,4 +87,5 @@ data class JobsUiState(
     val completedJobList: List<Job> = emptyList(),
     val inCompleteJobList: List<Job> = emptyList(),
     val jobListInfo: List<StatsBarInfo> = emptyList(),
+    val selectedTabIndex: Int = 0
 )

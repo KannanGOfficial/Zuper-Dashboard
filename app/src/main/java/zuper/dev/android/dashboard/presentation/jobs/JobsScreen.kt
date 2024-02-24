@@ -84,20 +84,17 @@ fun JobsScreen(onBackClick: () -> Unit) {
         )
     )
 
-    var selectedTabIndex by remember {
-        mutableIntStateOf(0)
-    }
 
     val pagerState = rememberPagerState {
         tabItems.size
     }
 
-    LaunchedEffect(selectedTabIndex) {
-        pagerState.animateScrollToPage(selectedTabIndex)
+    LaunchedEffect(viewModel.uiState.selectedTabIndex) {
+        pagerState.animateScrollToPage(viewModel.uiState.selectedTabIndex)
     }
 
     LaunchedEffect(pagerState.currentPage, pagerState.isScrollInProgress) {
-        if (!pagerState.isScrollInProgress) selectedTabIndex = pagerState.currentPage
+        if (!pagerState.isScrollInProgress) viewModel.updateSelectedTabIndex(pagerState.currentPage)
     }
 
 
@@ -138,7 +135,7 @@ fun JobsScreen(onBackClick: () -> Unit) {
             Divider()
 
             ScrollableTabRow(
-                selectedTabIndex = selectedTabIndex,
+                selectedTabIndex = viewModel.uiState.selectedTabIndex,
                 modifier = Modifier
                     .fillMaxWidth()
                     .verticalScroll(rememberScrollState()),
@@ -146,10 +143,10 @@ fun JobsScreen(onBackClick: () -> Unit) {
 
                 ) {
                 tabItems.forEachIndexed { index, name ->
-                    Tab(selected = index == selectedTabIndex, onClick = {
-                        selectedTabIndex = index
+                    Tab(selected = index == viewModel.uiState.selectedTabIndex, onClick = {
+                        viewModel.updateSelectedTabIndex(index)
                     }, text = {
-                        if (selectedTabIndex == index)
+                        if (viewModel.uiState.selectedTabIndex == index)
                             Text(
                                 text = name,
                                 fontWeight = FontWeight.Bold,
