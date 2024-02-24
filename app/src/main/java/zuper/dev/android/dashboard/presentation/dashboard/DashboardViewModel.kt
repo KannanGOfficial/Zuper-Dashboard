@@ -1,4 +1,4 @@
-package zuper.dev.android.dashboard.ui.dashboard
+package zuper.dev.android.dashboard.presentation.dashboard
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -9,9 +9,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import zuper.dev.android.dashboard.data.DataRepository
 import zuper.dev.android.dashboard.data.model.InvoiceStatus
 import zuper.dev.android.dashboard.data.model.JobStatus
+import zuper.dev.android.dashboard.domain.DataRepository
 import javax.inject.Inject
 
 @HiltViewModel

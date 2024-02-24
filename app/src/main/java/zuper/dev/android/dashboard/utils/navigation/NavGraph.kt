@@ -5,8 +5,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import zuper.dev.android.dashboard.ui.dashboard.DashBoardScreen
-import zuper.dev.android.dashboard.ui.jobs.JobsScreen
+import zuper.dev.android.dashboard.presentation.dashboard.DashBoardScreen
+import zuper.dev.android.dashboard.presentation.jobs.JobsScreen
 
 @Composable
 fun SetupNavGraph(

@@ -1,4 +1,4 @@
-package zuper.dev.android.dashboard.ui.jobs
+package zuper.dev.android.dashboard.presentation.jobs
 
 import zuper.dev.android.dashboard.data.model.JobApiModel
 import zuper.dev.android.dashboard.data.model.JobStatus

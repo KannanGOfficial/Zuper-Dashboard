@@ -1,11 +1,11 @@
 package zuper.dev.android.dashboard.data.model
 
 import androidx.compose.ui.graphics.Color
-import zuper.dev.android.dashboard.ui.theme.DarkMintGreen
-import zuper.dev.android.dashboard.ui.theme.LightBlue
-import zuper.dev.android.dashboard.ui.theme.LightPurple
-import zuper.dev.android.dashboard.ui.theme.LightRed
-import zuper.dev.android.dashboard.ui.theme.Yellow
+import zuper.dev.android.dashboard.presentation.theme.DarkMintGreen
+import zuper.dev.android.dashboard.presentation.theme.LightBlue
+import zuper.dev.android.dashboard.presentation.theme.LightPurple
+import zuper.dev.android.dashboard.presentation.theme.LightRed
+import zuper.dev.android.dashboard.presentation.theme.Yellow
 
 
 /**

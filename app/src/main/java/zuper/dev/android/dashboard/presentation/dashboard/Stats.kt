@@ -1,4 +1,4 @@
-package zuper.dev.android.dashboard.ui.dashboard
+package zuper.dev.android.dashboard.presentation.dashboard
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background

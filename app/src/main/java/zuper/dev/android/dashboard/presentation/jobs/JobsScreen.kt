@@ -1,4 +1,4 @@
-package zuper.dev.android.dashboard.ui.jobs
+package zuper.dev.android.dashboard.presentation.jobs
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -34,7 +34,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -42,8 +41,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import zuper.dev.android.dashboard.R
-import zuper.dev.android.dashboard.ui.dashboard.StatsHeader
-import zuper.dev.android.dashboard.ui.dashboard.StatsBar
+import zuper.dev.android.dashboard.presentation.dashboard.StatsHeader
+import zuper.dev.android.dashboard.presentation.dashboard.StatsBar
 import zuper.dev.android.dashboard.utils.extension.prefixHashtag
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)

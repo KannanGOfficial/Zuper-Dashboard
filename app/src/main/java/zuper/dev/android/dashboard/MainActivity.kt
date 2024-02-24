@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
-import zuper.dev.android.dashboard.ui.theme.AppTheme
+import zuper.dev.android.dashboard.presentation.theme.AppTheme
 import zuper.dev.android.dashboard.utils.navigation.SetupNavGraph
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {

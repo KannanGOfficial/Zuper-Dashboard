@@ -1,14 +1,13 @@
-package zuper.dev.android.dashboard.ui.jobs
+package zuper.dev.android.dashboard.presentation.jobs
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import zuper.dev.android.dashboard.data.DataRepository
-import zuper.dev.android.dashboard.data.model.JobApiModel
 import zuper.dev.android.dashboard.data.model.JobStatus
-import zuper.dev.android.dashboard.ui.dashboard.StatsBarInfo
+import zuper.dev.android.dashboard.domain.DataRepository
+import zuper.dev.android.dashboard.presentation.dashboard.StatsBarInfo
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,7 +19,7 @@ class JobsViewModel @Inject constructor(
         private set
 
     init {
-        dataRepository.getJobs().map(JobApiModel::toJob).also {
+        dataRepository.getJobs().also {
             val yetToStartJobList = it.filter { it.status == JobStatus.YetToStart }
             val inProgressJobList = it.filter { it.status == JobStatus.InProgress }
             val cancelledJobList = it.filter { it.status == JobStatus.Canceled }

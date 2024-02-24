@@ -1,4 +1,4 @@
-package zuper.dev.android.dashboard.ui.dashboard
+package zuper.dev.android.dashboard.presentation.dashboard
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -35,11 +35,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import zuper.dev.android.dashboard.R
-import zuper.dev.android.dashboard.ui.theme.Yellow
-import zuper.dev.android.dashboard.ui.theme.DarkMintGreen
-import zuper.dev.android.dashboard.ui.theme.LightRed
-import zuper.dev.android.dashboard.ui.theme.LightBlue
-import zuper.dev.android.dashboard.ui.theme.LightPurple
+import zuper.dev.android.dashboard.presentation.theme.Yellow
+import zuper.dev.android.dashboard.presentation.theme.DarkMintGreen
+import zuper.dev.android.dashboard.presentation.theme.LightRed
+import zuper.dev.android.dashboard.presentation.theme.LightBlue
+import zuper.dev.android.dashboard.presentation.theme.LightPurple
 import zuper.dev.android.dashboard.utils.extension.prefixDollar
 import zuper.dev.android.dashboard.utils.timeformatter.TimeFormatter
 import java.time.LocalDate
